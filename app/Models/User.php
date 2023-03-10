@@ -27,6 +27,17 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+
+        'nickname',
+        'email',
+        'date_of_birth',
+        'status_description',
+        'active',
+        'last_visited_at',
+        'last_visited_from',
+        'remember_token',
+        'verification_token',
+
     ];
 
     /**
@@ -37,6 +48,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'verification_token',
     ];
 
     /**
@@ -46,5 +58,17 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'date_of_birth'     => 'date',
+        'deleted_at'        => 'datetime',
+        'last_visited_at'   => 'datetime',
+        'active'            => 'boolean'
     ];
+
+
+
+    public function gender()
+    {
+        return $this->hasOne(Gender::class,'user_id');
+    }
+
 }
