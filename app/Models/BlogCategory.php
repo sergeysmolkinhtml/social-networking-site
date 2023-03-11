@@ -38,7 +38,7 @@ class BlogCategory extends Model
         return $title;
     }
 
-    public function  isRoot(): bool
+    public function isRoot(): bool
     {
         return $this->id === BlogCategory::ROOT;
     }
