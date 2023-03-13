@@ -13,7 +13,16 @@ return new class extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->id();
+            $table->string('path');
+            $table->string('url');
+            $table->unsignedBigInteger('post_id');
+
             $table->timestamps();
+
+            $table->index('post_id','image_post_idx');
+            $table->foreign('post_id','image_post_fk')
+                ->on('blog_posts')
+                ->references('id');
         });
     }
 

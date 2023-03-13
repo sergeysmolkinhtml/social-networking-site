@@ -6,7 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css','resources/js/app.js'])
 </head>
 <body>
 <nav class="bg-gray-800">
@@ -51,7 +51,7 @@
                         <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Calendar</a>
 
                         @guest
-                        <a href="{{route('register')}}" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Sign In</a>
+                        <a href="{{route('register')}}" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Sign Up</a>
                         @endguest
 
                         @guest
@@ -131,9 +131,9 @@
         </div>
     </div>
 </nav>
-<div id="app">
+
 @yield('content')
-</div>
+
 </body>
 </html>
 

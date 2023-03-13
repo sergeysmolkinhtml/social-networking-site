@@ -14,6 +14,10 @@ class BlogPost extends Model
 
     const UNKNOWN_USER = 1;
 
+    protected $guarded = false;
+
+    protected $table = 'blog_posts';
+
     protected $fillable =
         [
             'title',
