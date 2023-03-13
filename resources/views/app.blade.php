@@ -11,8 +11,7 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
         <!-- Scripts -->
-        <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
-        <script src="{{ mix('/js/app.js') }}" defer></script>
+
         @routes
         @vite(['resources/js/app.js', "resources/js/Pages/{$page['component']}.vue"])
         @inertiaHead

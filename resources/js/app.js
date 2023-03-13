@@ -1,29 +1,15 @@
-import './bootstrap';
-import '../css/app.css';
+/**
+ * First we will load all of this project's JavaScript dependencies which
+ * includes Vue and other libraries. It is a great starting point when
+ * building robust, powerful web applications using Vue and Laravel.
+ */
 
-import { createApp, h } from 'vue';
-import { createInertiaApp } from '@inertiajs/vue3';
-import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
-import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
-import ChatMessages from "@/Components/ChatMessages.vue";
-import ChatForm from "@/Components/ChatForm.vue";
 
-const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
+import Vue from '@inertiajs/vue3';
+import DashBoard from './Components/DashboardUser.vue';
 
-createInertiaApp({
-    title: (title) => `${title} - ${appName}`,
-    resolve: (name) => resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue')),
-    setup({ el, App, props, plugin }) {
-        return createApp({ render: () => h(App, props) })
-            .use(plugin)
-            .use(ZiggyVue, Ziggy)
-            .mount(el);
-    },
-    progress: {
-        color: '#4B5563',
-    },
-    components: {
-        ChatMessages,
-        ChatForm,
-    }
+Vue.component('example-component', DashBoard);
+
+const app = new Vue({
+    el: '#app',
 });
