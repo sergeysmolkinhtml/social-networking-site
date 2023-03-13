@@ -3,32 +3,17 @@
 use App\Http\Controllers\MyPageController;
 use App\Http\Controllers\NewsPage;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SocialAuthController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-
-
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
-
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
+use Laravel\Socialite\Facades\Socialite;
 
 Route::get('', [NewsPage::class, 'index'])->name('news.index');
 Route::get('mypage', [MyPageController::class, 'index'])->name('page.index');
 
+Route::get('/auth/google',[SocialAuthController::class,'googleRedirect'])->name('auth.google');
+Route::get('/auth/google/callback',[SocialAuthController::class,'loginWithGoogle']);
+
 require __DIR__.'/auth.php';
+require 'UsersChat.php';

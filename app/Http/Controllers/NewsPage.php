@@ -11,6 +11,6 @@ class NewsPage extends Controller
 {
     public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        return view('news');
+        return view('news.news');
     }
 }

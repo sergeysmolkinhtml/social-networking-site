@@ -20,6 +20,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->index('post_id','image_post_idx');
+
             $table->foreign('post_id','image_post_fk')
                 ->on('blog_posts')
                 ->references('id');

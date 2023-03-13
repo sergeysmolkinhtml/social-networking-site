@@ -13,9 +13,6 @@ class MyPageController extends Controller
 
     public function store()
     {
-        if(\request()->has('image')){
-            $image = \request()->file('image');
-            dd($image);
-        }
+
     }
 }

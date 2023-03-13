@@ -12,4 +12,9 @@ class Image extends Model
     protected $guarded = false;
 
     protected $table = 'images';
+
+    public function post()
+    {
+        $this->belongsTo(BlogPost::class);
+    }
 }

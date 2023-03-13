@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -39,6 +40,7 @@ class User extends Authenticatable
         'last_visited_from',
         'remember_token',
         'verification_token',
+        'google_id'
 
     ];
 
@@ -76,6 +78,11 @@ class User extends Authenticatable
     public function messages(): HasMany
     {
         return $this->hasMany(Message::class);
+    }
+
+    public function getFullNameAttribute()
+    {
+        return Str::ucfirst("{$this->name} {$this->last_name}");
     }
 
 }

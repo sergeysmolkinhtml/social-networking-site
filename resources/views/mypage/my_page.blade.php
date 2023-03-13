@@ -13,9 +13,7 @@
                         <p class="text-gray-400">Comments</p></div>
                 </div>
                 <div class="relative">
-                    <div
-                        class="w-48 h-48 bg-indigo-100 mx-auto rounded-full shadow-2xl absolute inset-x-0 top-0 -mt-24 flex items-center justify-center text-indigo-500">
-                    <DashboardUser></DashboardUser>
+                    <div class="w-48 h-48 bg-indigo-100 mx-auto rounded-full shadow-2xl absolute inset-x-0 top-0 -mt-24 flex items-center justify-center text-indigo-500">
 
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24" viewBox="0 0 20 20"
                              fill="currentColor">
@@ -35,17 +33,18 @@
                     </button>
                 </div>
             </div>
-            <div class="mt-20 text-center border-b pb-12"><h1 class="text-4xl font-medium text-gray-700">Jessica Jones,
-                    <span class="font-light text-gray-500">27</span></h1>
-                <p class="font-light text-gray-600 mt-3">Bucharest, Romania</p>
+            <div class="mt-20 text-center border-b pb-12"><h1 class="text-4xl font-medium text-gray-700">
+                    {{auth()->user()->name}}{{auth()->user()->last_name}},
+                    <span class="font-light text-gray-500">{{auth()->user()->age}}</span></h1>
+                <p class="font-light text-gray-600 mt-3">{{auth()->user()->city}}</p>
                 <p class="mt-8 text-gray-500">Solution Manager - Creative Tim Officer</p>
                 <p class="mt-2 text-gray-500">University of Computer Science</p></div>
-            <div class="mt-12 flex flex-col justify-center"><p class="text-gray-600 text-center font-light lg:px-16">An
-                    artist of considerable range, Ryan — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy
-                    — writes, performs and records all of his own music, giving it a warm, intimate feel with a solid
-                    groove structure. An artist of considerable range.</p>
+            <div class="mt-12 flex flex-col justify-center"><p class="text-gray-600 text-center font-light lg:px-16">
+                    {{auth()->user()->status_description}}
+                </p>
                 <button class="text-indigo-500 py-2 px-4  font-medium mt-4"> Show more</button>
             </div>
         </div>
     </div>
+
 @endsection
