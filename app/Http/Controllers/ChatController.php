@@ -33,7 +33,7 @@ class ChatController extends Controller
             ->messages()
             ->create($request->validated());
 
-        broadcast(new MessageSent($request->user(),$message));
+        //broadcast(new MessageSent($request->user(),$message));
 
         return $message;
     }

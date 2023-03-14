@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FriendsController;
 use App\Http\Controllers\MyPageController;
 use App\Http\Controllers\NewsPage;
 use App\Http\Controllers\ProfileController;
@@ -10,10 +11,10 @@ use Inertia\Inertia;
 use Laravel\Socialite\Facades\Socialite;
 
 Route::get('', [NewsPage::class, 'index'])->name('news.index');
-Route::get('mypage', [MyPageController::class, 'index'])->name('page.index');
+Route::get('{nickname}', [MyPageController::class, 'index'])->name('page.index');
 
-Route::get('/auth/google',[SocialAuthController::class,'googleRedirect'])->name('auth.google');
-Route::get('/auth/google/callback',[SocialAuthController::class,'loginWithGoogle']);
+Route::get('{nickname}/friends',[FriendsController::class,'index'])->name('friends.index');
 
-require __DIR__.'/auth.php';
-require 'UsersChat.php';
+require 'social.php';
+require 'auth.php';
+require 'chat.php';

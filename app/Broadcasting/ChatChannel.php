@@ -19,6 +19,6 @@ class ChatChannel
      */
     public function join(User $user): array|bool
     {
-        return auth()->check();
+        //return auth()->check();
     }
 }

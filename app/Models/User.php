@@ -3,7 +3,9 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -80,9 +82,30 @@ class User extends Authenticatable
         return $this->hasMany(Message::class);
     }
 
+    public function getNicknameOrName()
+    {
+        return strtolower($this->nickname ?: $this->name);
+    }
+
     public function getFullNameAttribute()
     {
         return Str::ucfirst("{$this->name} {$this->last_name}");
     }
 
+    public function friendsOfMine(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class,'friends','user_id','friend_id')
+            ->withPivot('status');
+    }
+
+    public function friendsOf(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class,'friends','friend_id','user_id');
+    }
+
+    public function friends(): Collection
+    {
+        return $this->friendsOfMine()->wherePivot('accepted',true)->get()
+           ->merge($this->friendsOf()->wherePivot('accepted',true)->get());
+    }
 }

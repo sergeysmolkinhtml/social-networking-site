@@ -102,8 +102,8 @@
                         <a href="{{ route('login') }}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Log In</a>
                         @endguest
 
-                        @auth
-                            <a href="{{ route('page.index', 1)}}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">My page</a>
+                        @auth                               {{-- TODO short view --}}
+                            <a href="{{ route('page.index', strtolower( auth()->user()->getNicknameOrName() )) }}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">My page</a>
                         @endauth
 
                         <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>
