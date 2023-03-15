@@ -13,6 +13,12 @@ class Image extends Model
 
     protected $table = 'images';
 
+    public function user()
+    {
+        $this->hasMany(User::class);
+    }
+
+
     public function post()
     {
         $this->belongsTo(BlogPost::class);

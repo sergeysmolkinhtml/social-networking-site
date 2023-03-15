@@ -18,4 +18,6 @@
 export default {
     props: ["messages"],
 };
+
+
 </script>

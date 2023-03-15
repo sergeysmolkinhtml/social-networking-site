@@ -10,32 +10,36 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ChatController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        auth()->loginUsingId(1);
 
-        return view('chat');
+        $slot = 123;
+        return view('chat.index', compact('slot'));
     }
 
     public function messages(): Collection|array
     {
-        return Message::query()
-            ->with('user')
-            ->get();
+        return Message::with('user')->get();
     }
 
     public function send(MessageFormRequest $request)
     {
-        $message = $request->user()
-            ->messages()
-            ->create($request->validated());
+        $user = Auth::user();
+        $message = $user->messages()->create([
+            'message' => $request->input('message')
+        ]);
 
-        //broadcast(new MessageSent($request->user(),$message));
+        broadcast(new MessageSent($request->user(),$message));
 
-        return $message;
+        return ['status' => 'Message Sent!'];
     }
 
 }
