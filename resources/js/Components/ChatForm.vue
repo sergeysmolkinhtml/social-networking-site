@@ -1,7 +1,7 @@
 <template>
     //Display an input field and a send button.
     <div class="input-group">
-        //Input field.
+
         <input
             id="btn-input"
             type="text"

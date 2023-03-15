@@ -84,7 +84,7 @@ class User extends Authenticatable
 
     public function getNicknameOrName()
     {
-        return strtolower($this->nickname ?: $this->name);
+        return strtolower($this->nickname ? : $this->name);
     }
 
     public function getFullNameAttribute()

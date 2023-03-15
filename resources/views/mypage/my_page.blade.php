@@ -2,6 +2,22 @@
 
 @section('content')
     <div class="p-16">
+        <ul id="notifications">
+        </ul>
+            notifications
+        <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+        <script>
+            const pusher = new Pusher('{{ env("PUSHER_APP_KEY") }}', {
+                cluster: '{{ env("PUSHER_APP_CLUSTER") }}'
+            });
+
+            const channel = pusher.subscribe('private-notifications');
+            channel.bind('App\\Events\\NewNotification', function(data) {
+                const li = document.createElement("li");
+                li.innerText = data.message;
+                document.getElementById("notifications").appendChild(li);
+            });
+        </script>
         <div class="p-8 bg-white shadow mt-24">
             <div class="grid grid-cols-1 md:grid-cols-3">
                 <div class="grid grid-cols-3 text-center order-last md:order-first mt-20 md:mt-0">
@@ -30,7 +46,9 @@
                 </div>
                 <div class="space-x-8 flex justify-between mt-32 md:mt-0 md:justify-center">
                    <button href="{{route('dialogues.dash',auth()->user()->name)}}" class="text-white py-2 px-4 uppercase rounded bg-blue-400 hover:bg-blue-500 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5">
-                            <a href="{{route('dialogues.dash',auth()->user()->name)}}"> Connect </a>
+                            <a href="{{route('dialogues.dash',auth()->user()->getNicknameOrName()) }}">
+                                Connect
+                            </a>
                     </button>
 
                     <button class="text-white py-2 px-4 uppercase rounded bg-gray-700 hover:bg-gray-800 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5">

@@ -48,5 +48,5 @@ const app = Vue({
 })
 
 
-app.mount('#app');
+
 
