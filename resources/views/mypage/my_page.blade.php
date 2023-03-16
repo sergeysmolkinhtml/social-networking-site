@@ -21,7 +21,7 @@
         <div class="p-8 bg-white shadow mt-24">
             <div class="grid grid-cols-1 md:grid-cols-3">
                 <div class="grid grid-cols-3 text-center order-last md:order-first mt-20 md:mt-0">
-                    <a href=""><div><p class="font-bold text-gray-700 text-xl">
+                    <a href="{{route('friends.index',auth()->user()->getNicknameOrName() )}}"><div><p class="font-bold text-gray-700 text-xl">
                                 @if(!auth()->user()->friends()->count())
                                     0
                                 @else
@@ -57,13 +57,13 @@
                 </div>
             </div>
             <div class="mt-20 text-center border-b pb-12"><h1 class="text-4xl font-medium text-gray-700">
-                    {{ auth()->user()->getFullNameAttribute() }},
-                    <span class="font-light text-gray-500">{{auth()->user()->age}}</span></h1>
-                <p class="font-light text-gray-600 mt-3">{{auth()->user()->city}}</p>
-                <p class="mt-8 text-gray-500">{{auth()->user()->job_title}}</p>
-                <p class="mt-2 text-gray-500">{{auth()->user()->education}}</p></div>
+                    first last name,
+                    <span class="font-light text-gray-500">age</span></h1>
+                <p class="font-light text-gray-600 mt-3">city</p>
+                <p class="mt-8 text-gray-500">job title</p>
+                <p class="mt-2 text-gray-500">education</p></div>
             <div class="mt-12 flex flex-col justify-center"><p class="text-gray-600 text-center font-light lg:px-16">
-                    {{auth()->user()->status_description}}
+                    descrtiption
                 </p>
                 <button class="text-indigo-500 py-2 px-4  font-medium mt-4"> Show more</button>
             </div>

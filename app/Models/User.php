@@ -3,17 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Str;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
-use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -21,12 +20,9 @@ class User extends Authenticatable
     use HasApiTokens;
     use HasFactory;
     use HasProfilePhoto;
-    use HasTeams;
     use Notifiable;
     use TwoFactorAuthenticatable;
 
-
-    protected $table = 'users';
     /**
      * The attributes that are mass assignable.
      *
@@ -47,6 +43,7 @@ class User extends Authenticatable
         'remember_token',
         'verification_token',
         'google_id'
+
     ];
 
     /**
@@ -79,10 +76,10 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+
     protected $appends = [
         'profile_photo_url',
     ];
-
     public function gender(): HasOne
     {
         return $this->hasOne(Gender::class,'user_id');
@@ -93,9 +90,23 @@ class User extends Authenticatable
         return $this->hasMany(Message::class);
     }
 
+    public function getName()
+    {
+        if($this->name && $this->last_name)
+        {
+            return "{$this->name} {$this->last_name}";
+        }
+        if ($this->name)
+        {
+            return $this->name;
+        }
+
+        return null;
+    }
+
     public function getNicknameOrName(): string
     {
-        return strtolower($this->nickname ? : $this->name);
+        return strtolower($this->getName() ? : $this->nickname);
     }
 
     public function getFullNameAttribute()
@@ -120,7 +131,7 @@ class User extends Authenticatable
             ->merge($this->friendsOf()->wherePivot('accepted',true)->get());
     }
 
-    public function getRouteWithParameter()
+    public function getRouteWithParameter(): string
     {
         return route('page.index',auth()->user()->nickname ?: auth()->user()->name);
     }

@@ -6,14 +6,17 @@ use App\Http\Controllers\ImageController;
 use App\Http\Controllers\MyPageController;
 use App\Http\Controllers\NewsPage;
 use App\Http\Controllers\NotificationsController;
+use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 // 161 185
 
+require 'social.php';
+require 'chat.php';
 
 Route::get( '', [NewsPage::class, 'index'])->name('news.index');
-
+Route::get('search',[SearchController::class,'results'])->name('search.results');
 Route::get('/alert',function (){
     return redirect()->route('home')->with('info','You can now log in');
 });
@@ -25,13 +28,7 @@ Route::middleware('auth')->group(function (){
     Route::post('/notifications',[NotificationsController::class,'get']);
 });
 
-require 'social.php';
 
-require 'chat.php';
-
-Auth::routes();
-
-Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::middleware([
     'auth:sanctum',

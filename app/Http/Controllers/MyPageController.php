@@ -7,15 +7,12 @@ use Illuminate\Http\Request;
 
 class MyPageController extends Controller
 {
-    public function index(Request $request,$nickname)
+    public function index(Request $request,$name)
     {
-        $user = User::where('nickname',$nickname)->first();
+        $user = User::where('name',$name)->first();
 
         return view("mypage.my_page",compact('user'));
     }
 
-    public function store()
-    {
 
-    }
 }
