@@ -1,4 +1,4 @@
-@extends('main_navbar')
+@extends('base')
 
 @section('content')
     <header class="bg-white shadow">
@@ -8,13 +8,13 @@
     </header>
 
     <main>
-        @foreach(auth()->user()->friends() as $friend)
+        @foreach($friends as $friend)
             <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
                 <div
-                    class="w-full max-w-sm bg-white border border-w-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                    class="w-full max-w-sm bg-white border border-w-200 rounded-lg shadow">
                     <div class="flex justify-end px-4 pt-4">
                         <button id="dropdownButton" data-dropdown-toggle="dropdown"
-                                class="inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-1.5"
+                                class="inline-block text-gray-500 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg text-sm p-1.5"
                                 type="button">
                             <span class="sr-only">Open dropdown</span>
                             <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
@@ -25,20 +25,20 @@
                         </button>
                         <!-- Dropdown menu -->
                         <div id="dropdown"
-                             class="z-10 hidden text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                             class="z-10 hidden text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
                             <ul class="py-2" aria-labelledby="dropdownButton">
                                 <li>
                                     <a href="#"
-                                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Edit</a>
+                                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Edit</a>
                                 </li>
                                 <li>
                                     <a href="#"
-                                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Export
+                                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Export
                                         Data</a>
                                 </li>
                                 <li>
                                     <a href="#"
-                                       class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete</a>
+                                       class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100">Delete</a>
                                 </li>
                             </ul>
                         </div>
@@ -46,14 +46,14 @@
                     <div class="flex flex-col items-center pb-10">
                         <img class="w-24 h-24 mb-3 rounded-full shadow-lg"
                              src="/docs/images/people/profile-picture-3.jpg" alt="Bonnie image"/>
-                        <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">{{$friend->getFullNameAttribute()}}</h5>
-                        <span class="text-sm text-gray-500 dark:text-gray-400">{{$friend->job_title}}</span>
+                       <a href="{{route('page.index',$friend->getNicknameOrName())}}"> <h5 class="mb-1 text-xl font-medium text-gray-900">{{$friend->getFullNameAttribute()}}</h5></a>
+                        <span class="text-sm text-gray-500">{{$friend->job_title}}</span>
                         <div class="flex mt-4 space-x-3 md:mt-6">
                             <a href="#"
-                               class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add
+                               class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">Add
                                 friend</a>
                             <a href="#"
-                               class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700">Message</a>
+                               class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200">Message</a>
                         </div>
                     </div>
                 </div>

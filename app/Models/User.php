@@ -2,27 +2,31 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Str;
+use Laravel\Fortify\TwoFactorAuthenticatable;
+use Laravel\Jetstream\HasProfilePhoto;
+use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens;
+    use HasFactory;
+    use HasProfilePhoto;
+    use HasTeams;
+    use Notifiable;
+    use TwoFactorAuthenticatable;
 
-    /**
-     * The database table used by the model.
-     * @var string
-     */
+
     protected $table = 'users';
-
     /**
      * The attributes that are mass assignable.
      *
@@ -43,7 +47,6 @@ class User extends Authenticatable
         'remember_token',
         'verification_token',
         'google_id'
-
     ];
 
     /**
@@ -54,7 +57,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
-        'verification_token',
+        'two_factor_recovery_codes',
+        'two_factor_secret',
     ];
 
     /**
@@ -70,7 +74,14 @@ class User extends Authenticatable
         'active'            => 'boolean'
     ];
 
-
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array<int, string>
+     */
+    protected $appends = [
+        'profile_photo_url',
+    ];
 
     public function gender(): HasOne
     {
@@ -82,7 +93,7 @@ class User extends Authenticatable
         return $this->hasMany(Message::class);
     }
 
-    public function getNicknameOrName()
+    public function getNicknameOrName(): string
     {
         return strtolower($this->nickname ? : $this->name);
     }
@@ -106,6 +117,11 @@ class User extends Authenticatable
     public function friends(): Collection
     {
         return $this->friendsOfMine()->wherePivot('accepted',true)->get()
-           ->merge($this->friendsOf()->wherePivot('accepted',true)->get());
+            ->merge($this->friendsOf()->wherePivot('accepted',true)->get());
+    }
+
+    public function getRouteWithParameter()
+    {
+        return route('page.index',auth()->user()->nickname ?: auth()->user()->name);
     }
 }
