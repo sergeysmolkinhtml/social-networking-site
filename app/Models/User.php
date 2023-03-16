@@ -106,7 +106,7 @@ class User extends Authenticatable
 
     public function getNicknameOrName(): string
     {
-        return strtolower($this->getName() ? : $this->nickname);
+        return strtolower($this->nickname ? : $this->name);
     }
 
     public function getFullNameAttribute()
@@ -131,8 +131,9 @@ class User extends Authenticatable
             ->merge($this->friendsOf()->wherePivot('accepted',true)->get());
     }
 
-    public function getRouteWithParameter(): string
+
+    public function profilePictureUrl()
     {
-        return route('page.index',auth()->user()->nickname ?: auth()->user()->name);
+        return "https://www.gravatar.com/avatar/md5($this->email)?s=50";
     }
 }

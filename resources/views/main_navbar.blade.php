@@ -74,8 +74,8 @@
                                     Logout
                                 </button>
                             </form>
-                            <a href="{{auth()->user()->getRouteWithParameter() }}" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
-                                {{auth()->user()->getNickNameOrName()}}
+                            <a href="{{auth()->user()->getNicknameOrName()}}" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
+                                {{auth()->user()->getNicknameOrName()}}
                             </a>
                         @endauth
 

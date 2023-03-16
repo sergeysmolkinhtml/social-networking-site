@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\User;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -13,6 +14,17 @@ use Inertia\Response;
 
 class ProfileController extends Controller
 {
+    public function profile($nickname)
+    {
+        $user = User::where('nickname',$nickname)->first();
+
+        if (!$user){
+            abort(404);
+        }
+
+        return view('profile.index',compact('user'));
+    }
+
     /**
      * Display the user's profile form.
      */

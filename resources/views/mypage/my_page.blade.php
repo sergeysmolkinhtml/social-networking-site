@@ -57,7 +57,7 @@
                 </div>
             </div>
             <div class="mt-20 text-center border-b pb-12"><h1 class="text-4xl font-medium text-gray-700">
-                    first last name,
+                {{auth()->user()->name}}
                     <span class="font-light text-gray-500">age</span></h1>
                 <p class="font-light text-gray-600 mt-3">city</p>
                 <p class="mt-8 text-gray-500">job title</p>

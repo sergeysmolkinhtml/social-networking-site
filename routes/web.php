@@ -6,6 +6,7 @@ use App\Http\Controllers\ImageController;
 use App\Http\Controllers\MyPageController;
 use App\Http\Controllers\NewsPage;
 use App\Http\Controllers\NotificationsController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -17,8 +18,10 @@ require 'chat.php';
 
 Route::get( '', [NewsPage::class, 'index'])->name('news.index');
 Route::get('search',[SearchController::class,'results'])->name('search.results');
+
 Route::get('/alert',function (){
-    return redirect()->route('home')->with('info','You can now log in');
+    return redirect()->route('home')
+        ->with('info','You can now log in');
 });
 
 Route::middleware('auth')->group(function (){
@@ -28,7 +31,7 @@ Route::middleware('auth')->group(function (){
     Route::post('/notifications',[NotificationsController::class,'get']);
 });
 
-
+Route::get('/user/{nickname}',[ProfileController::class,'profile'])->name('user_profile.index');
 
 Route::middleware([
     'auth:sanctum',
