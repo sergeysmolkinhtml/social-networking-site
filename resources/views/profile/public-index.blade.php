@@ -21,7 +21,7 @@
         <div class="p-8 bg-white shadow mt-24">
             <div class="grid grid-cols-1 md:grid-cols-3">
                 <div class="grid grid-cols-3 text-center order-last md:order-first mt-20 md:mt-0">
-                    <a href="{{route('friends.index', $user->nickname )}}"><div><p class="font-bold text-gray-700 text-xl">
+                    <a href="{{route('user_friends.index', $user->nickname )}}"><div><p class="font-bold text-gray-700 text-xl">
                                 @if(!$user->friends()->count())
                                     0
                                 @else

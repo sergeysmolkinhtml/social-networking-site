@@ -3,12 +3,12 @@
 @section('content')
     <header class="bg-white shadow">
         <div class="mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8">
-            <h1 class="text-3xl font-bold tracking-tight text-gray-900">User Public Friends</h1>
+            <h1 class="text-3xl font-bold tracking-tight text-gray-900">uses's nickaname Public Friends</h1>
         </div>
     </header>
 
     <main>
-        @foreach($user_friends as $friend)
+        @foreach($user->friends() as $friend)
             <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
                 <div
                     class="w-full max-w-sm bg-white border border-w-200 rounded-lg shadow">
@@ -45,9 +45,8 @@
                     </div>
                     <div class="flex flex-col items-center pb-10">
                         <img src="" class="w-24 h-24 mb-3 rounded-full shadow-lg"  alt="Bonnie image"/>
-                        <a href="{{route('page.index',$friend->getNicknameOrName())}}">
-                            <h5 class="mb-1 text-xl font-medium text-gray-900">{{$friend->getFullNameAttribute()}}</h5></a>
-                        <span class="text-sm text-gray-500">{{$friend->job_title}}</span>
+                        <a href=""><h5 class="mb-1 text-xl font-medium text-gray-900">{{$friend->nickname}}</h5></a>
+                        <span class="text-sm text-gray-500">job title</span>
                         <div class="flex mt-4 space-x-3 md:mt-6">
                             <a href="#"
                                class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">Add
@@ -60,11 +59,6 @@
             </div>
         @endforeach
     </main>
-    <header class="bg-white shadow">
-        <div class="mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8">
-            <h1 class="text-3xl font-bold tracking-tight text-gray-900">Friend Requests</h1>
-        </div>
-    </header>
 
 
 @endsection

@@ -8,10 +8,12 @@ use Illuminate\Http\Request;
 
 class PublicUserFriendsController extends Controller
 {
-    public function index()
+    public function index($nickname)
     {
-        $friends = '';
+        $user = User::where("nickname",$nickname)->first();
 
-        return view('profile.partials.friends',compact('friends'));
+
+
+        return view('profile.partials.friends',compact('user'));
     }
 }
