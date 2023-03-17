@@ -12,8 +12,6 @@ class PublicUserFriendsController extends Controller
     {
         $user = User::where("nickname",$nickname)->first();
 
-
-
         return view('profile.partials.friends',compact('user'));
     }
 }

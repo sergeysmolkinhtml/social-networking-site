@@ -3,7 +3,7 @@
 @section('content')
     <header class="bg-white shadow">
         <div class="mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8">
-            <h1 class="text-3xl font-bold tracking-tight text-gray-900">uses's nickaname Public Friends</h1>
+            <h1 class="text-3xl font-bold tracking-tight text-gray-900">{{$user->name}}'s  Friends</h1>
         </div>
     </header>
 
@@ -45,7 +45,7 @@
                     </div>
                     <div class="flex flex-col items-center pb-10">
                         <img src="" class="w-24 h-24 mb-3 rounded-full shadow-lg"  alt="Bonnie image"/>
-                        <a href=""><h5 class="mb-1 text-xl font-medium text-gray-900">{{$friend->nickname}}</h5></a>
+                        <a href="{{route('user_profile.index',$friend->nickname)}}"><h5 class="mb-1 text-xl font-medium text-gray-900">{{$friend->name}}</h5></a>
                         <span class="text-sm text-gray-500">job title</span>
                         <div class="flex mt-4 space-x-3 md:mt-6">
                             <a href="#"
