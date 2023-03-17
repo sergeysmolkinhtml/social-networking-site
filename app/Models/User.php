@@ -128,9 +128,13 @@ class User extends Authenticatable
     public function friends(): Collection
     {
         return $this->friendsOfMine()->wherePivot('accepted',true)->get()
-            ->merge($this->friendsOf()->wherePivot('accepted',true)->get());
+          ->merge($this->friendsOf()->wherePivot('accepted',true)->get());
     }
 
+    public function friendRequests()
+    {
+        return $this->friendsOfMine()->wherePivot('accepted',false)->get();
+    }
 
     public function profilePictureUrl()
     {

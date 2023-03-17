@@ -22,7 +22,7 @@ class ProfileController extends Controller
             abort(404);
         }
 
-        return view('profile.index',compact('user'));
+        return view('profile.public-index',compact('user'));
     }
 
     /**

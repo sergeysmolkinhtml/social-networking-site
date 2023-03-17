@@ -7,9 +7,9 @@ use Illuminate\Http\Request;
 
 class MyPageController extends Controller
 {
-    public function index(Request $request,$name)
+    public function index(Request $request,$nickname)
     {
-        $user = User::where('name',$name)->first();
+        $user = User::where('nickname',$nickname)->first();
 
         return view("mypage.my_page",compact('user'));
     }
