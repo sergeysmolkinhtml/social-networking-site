@@ -52,7 +52,7 @@
                     </button>
 
                     <button class="text-white py-2 px-4 uppercase rounded bg-gray-700 hover:bg-gray-800 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5">
-                        Connect
+                       <a href="{{route('friend.add',$user->nickname)}}"> Add Friend </a>
                     </button>
                 </div>
             </div>

@@ -25,14 +25,18 @@ Route::get('/alert',function (){
     return redirect()->route('home')
         ->with('info','You can now log in');
 });
+
 /**
  * Private Profile
  */
 Route::middleware('auth')->group(function (){
     Route::get( 'page/{nickname}', [MyPageController::class, 'index'])->name('page.index');
     Route::get( '{nickname}/friends',[MyFriendsController::class,'index'])->name('friends.index');
+    Route::get( 'friends/add/{nickname}',[MyFriendsController::class,'addFriend'])->name('friend.add');
+    Route::get( 'friends/accept/{nickname}',[MyFriendsController::class,'acceptFriend'])->name('friend.accept');
     Route::post('{nickname}/pfp/upload',[ImageController::class,'upload'])->name('pfp.upload');
-    Route::post('/notifications',[NotificationsController::class,'get']);
+    Route::post('notifications',[NotificationsController::class,'get']);
+
 });
 
 /**
@@ -40,6 +44,7 @@ Route::middleware('auth')->group(function (){
  */
 Route::get('/user/{nickname}',[ProfileController::class,'profile'])->name('user_profile.index');
 Route::get('/user/{nickname}/friends/',[PublicUserFriendsController::class,'index'])->name('user_friends.index');
+
 
 Route::middleware([
     'auth:sanctum',

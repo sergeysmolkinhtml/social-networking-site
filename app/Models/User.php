@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -115,47 +114,56 @@ class User extends Authenticatable
         return Str::ucfirst("{$this->name} {$this->last_name}");
     }
 
-    public function friendsOfMine(): BelongsToMany
-    {
-        return $this->belongsToMany(User::class,'friends','user_id','friend_id')
-            ->withPivot('status');
-    }
-
-    public function friendsOf(): BelongsToMany
-    {
-        return $this->belongsToMany(User::class,'friends','friend_id','user_id');
-    }
-
-    public function friends(): Collection
-    {
-        return $this->friendsOfMine()->wherePivot('accepted',true)->get()
-          ->merge($this->friendsOf()->wherePivot('accepted',true)->get());
-    }
-
-    public function friendRequests()
-    {
-        return $this->friendsOfMine()->wherePivot('accepted',false)->get();
-    }
 
     // Gravatar
     public function profilePictureUrl()
     {
         return "https://www.gravatar.com/avatar/md5($this->email)?s=50";
     }
+
     /*
-     * Friend Logic
+     * Friends Logic
      */
-    public function friendRequestPending()
+
+    // my friend
+    public function friendsOfMine(): BelongsToMany
     {
-        return $this->friendsOf()->wherePivot('accepted',false)->get();
+        return $this->belongsToMany(User::class, 'friends', 'user_id', 'friend_id')
+            ->withPivot('status');
     }
 
-    public function hasFriendRequestPending(User $user)
+    // exact friend
+    public function friendsOf(): BelongsToMany
     {
-        return (bool)$this->friendRequestPending()->where('id',$user->id)->count();
+        return $this->belongsToMany(User::class, 'friends', 'friend_id', 'user_id');
     }
 
-    public function hasFriendRequestReceived(User $user)
+    // get friends
+    public function friends(): Collection
+    {
+        return $this->friendsOfMine()->wherePivot('accepted', true)->get()
+            ->merge($this->friendsOf()->wherePivot('accepted', true)->get());
+    }
+
+    // friend requests
+    public function friendRequests(): Collection
+    {
+        return $this->friendsOfMine()->wherePivot('accepted', false)->get();
+    }
+
+    //request for "pending"
+    public function friendRequestPending(): Collection
+    {
+        return $this->friendsOf()->wherePivot('accepted', false)->get();
+    }
+
+    public function hasFriendRequestPending(User $user): bool
+    {
+        return (bool)$this->friendRequestPending()->where('id', $user->id)->count();
+    }
+
+    // received friend request
+    public function hasFriendRequestReceived(User $user): bool
     {
         return (bool)$this->friendRequests()->where('id',$user->id)->count();
     }
@@ -167,12 +175,12 @@ class User extends Authenticatable
 
     public function acceptFriendRequest(User $user)
     {
-        $this->friendRequests()->where('id',$user->id)->first()->pivot()->update([
+        $this->friendRequests()->where('id',$user->id)->first()->pivot->update([
             'accepted' => true
         ]);
     }
 
-    public function isFriendWith(User $user)
+    public function isFriendWith(User $user): bool
     {
         return (bool)$this->friends()->where('id', $user->id)->count();
     }
