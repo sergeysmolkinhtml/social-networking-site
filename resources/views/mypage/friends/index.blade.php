@@ -28,17 +28,16 @@
                              class="z-10 hidden text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
                             <ul class="py-2" aria-labelledby="dropdownButton">
                                 <li>
-                                    <a href="#"
-                                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Edit</a>
+                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Edit</a>
                                 </li>
                                 <li>
-                                    <a href="#"
-                                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Export
+                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Export
                                         Data</a>
                                 </li>
                                 <li>
-                                    <a href="#"
-                                       class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100">Delete</a>
+                                    <a href="#" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
+                                        Delete
+                                    </a>
                                 </li>
                             </ul>
                         </div>
@@ -50,12 +49,16 @@
                         </a>
                         <span class="text-sm text-gray-500">{{$friendUser->job_title}}</span>
                         <div class="flex mt-4 space-x-3 md:mt-6">
-                            <a href="#"
-                               class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
+                            <a href="#" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
                                 Videocall
                             </a>
-                            <a href="#"
-                               class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200">Message</a>
+                            <a href="#" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200">
+                                Message
+                            </a>
+                            <form action="{{route('friend.delete', $friendUser->nickname) }}" method="post">
+                                @csrf
+                                <input type="submit" value="Delete" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200">
+                            </form>
                         </div>
                     </div>
                 </div>

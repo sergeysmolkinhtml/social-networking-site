@@ -80,6 +80,12 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
+    public function posts()
+    {
+        return $this->hasMany(BlogPost::class,'user_id');
+
+    }
+
     public function gender(): HasOne
     {
         return $this->hasOne(Gender::class,'user_id');
@@ -171,6 +177,12 @@ class User extends Authenticatable
     public function addFriend(User $user)
     {
         $this->friendsOf()->attach($user->id);
+    }
+
+    public function deleteFriend(User $user)
+    {
+        $this->friendsOf()->detach($user->id);
+        $this->friendsOfMine()->detach($user->id);
     }
 
     public function acceptFriendRequest(User $user)

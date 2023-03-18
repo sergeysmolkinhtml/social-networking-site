@@ -70,4 +70,18 @@ class MyFriendsController extends Controller
             ->with('info','Request has been approven');
 
     }
+
+    public function deleteFriend($nickname)
+    {
+        $user = User::where('nickname', $nickname)->first();
+
+        if (!Auth::user()->isFriendWith($user)){
+            return redirect()->back();
+        }
+
+        Auth::user()->deleteFriend($user);
+
+        return redirect()->back()
+            ->with('info',"User $user->nickname just have been deleted");
+    }
 }
