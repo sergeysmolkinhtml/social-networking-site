@@ -17,33 +17,68 @@
     <main>
 
         <!-- component -->
-        <div class="heading text-center font-bold text-2xl m-5 text-gray-800">New Post</div>
-        <style>
-            body {background:white !important;}
-        </style>
-        <div class="editor mx-auto w-10/12 flex flex-col text-gray-800 border border-gray-300 p-4 shadow-lg max-w-2xl">
-            <input name="title" class="title bg-gray-100 border border-gray-300 p-2 mb-4 outline-none {{$errors->has('title') ? 'is-invalid': ''}}" spellcheck="false" placeholder="Title" type="text">
-
-            <textarea name="content_raw" class="description bg-gray-100 sec p-3 h-60 border border-gray-300 outline-none {{$errors->has('content_raw') ? 'is-invalid': ''}}" spellcheck="false" placeholder="Describe everything about this post here"></textarea>
-
-            <!-- icons -->
-            <div class="icons flex text-gray-500 m-2">
-                <svg class="mr-2 cursor-pointer hover:text-gray-700 border rounded-full p-1 h-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
-                <svg class="mr-2 cursor-pointer hover:text-gray-700 border rounded-full p-1 h-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                <svg class="mr-2 cursor-pointer hover:text-gray-700 border rounded-full p-1 h-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" /></svg>
-                <div class="count ml-auto text-gray-400 text-xs font-semibold">0/300</div>
-            </div>
-            <!-- buttons -->
-            <div class="buttons flex">
-                <div class="btn border border-gray-300 p-1 px-4 font-semibold cursor-pointer text-gray-500 ml-auto">Cancel</div>
-                <form action="{{route('blog.post')}}" method="post">
-                    @csrf
-                    <button type="submit" class="btn border border-indigo-500 p-1 px-4 font-semibold cursor-pointer text-gray-200 ml-2 bg-indigo-500">
-                        Post
-                    </button>
-                </form>
-            </div>
+        <div class="heading text-center font-bold text-2xl m-5 text-gray-800">
+            <a href="{{route('post.detail')}}">Detail New Post </a>
         </div>
+        <style>
+            body {
+                background: #ffffff !important;
+            }
+        </style>
+
+        <form method="post" action="{{route('blog.post')}}">
+            <div class="editor mx-auto w-10/12 flex flex-col text-gray-800 border border-gray-300 p-4 shadow-lg max-w-2xl">
+                <label for="title">{{__('Title')}}</label>
+                <input name="title"
+                       id="title"
+                       value="{{old('title')}}"
+                       class="title bg-gray-100 border border-gray-300 p-2 mb-4 outline-none {{$errors->has('title') ? 'is-invalid': ''}}"
+                       spellcheck="false" placeholder="..." type="text">
+                @if($errors->has('title'))
+                    {{$errors->first('title')}}
+                @endif
+
+                <label for="content_raw">{{__('Content')}}</label>
+                <textarea name="content_raw"
+                          class="description bg-gray-100 sec p-3 h-60 border border-gray-300 outline-none {{$errors->has('content_raw') ? 'is-invalid': ''}}"
+                          spellcheck="false" placeholder="Describe everything about this post here">
+                </textarea>
+            @if($errors->has('content_raw'))
+                {{$errors->first('content_raw')}}
+            @endif
+
+                <div class="icons flex text-gray-500 m-2">
+                    <svg class="mr-2 cursor-pointer hover:text-gray-700 border rounded-full p-1 h-7"
+                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    </svg>
+                    <svg class="mr-2 cursor-pointer hover:text-gray-700 border rounded-full p-1 h-7"
+                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <svg class="mr-2 cursor-pointer hover:text-gray-700 border rounded-full p-1 h-7"
+                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/>
+                    </svg>
+                    <div class="count ml-auto text-gray-400 text-xs font-semibold">0/300</div>
+                </div>
+                <!-- buttons -->
+                <div class="buttons flex">
+                    <div class="btn border border-gray-300 p-1 px-4 font-semibold cursor-pointer text-gray-500 ml-auto">Cancel</div>
+                    <form action="{{route('blog.post')}}" method="post">
+                        @csrf
+                        <button type="submit" class="btn border border-indigo-500 p-1 px-4 font-semibold cursor-pointer text-gray-200 ml-2 bg-indigo-500">
+                            Post
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </form>
 
     </main>
 
@@ -63,60 +98,75 @@
             </form>
     @else
         @foreach($posts as $post)
-        <div class="bg-white py-24 sm:py-32">
-            <div class="mx-auto max-w-7xl px-6 lg:px-8">
-                <div class="mx-auto max-w-2xl lg:mx-0">
-                    <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">{{$post->title}}</h2>
 
-                    <div class="flex items-center">
-                        <button class="flex items-center justify-center w-12 h-12 rounded-full bg-gray-200 hover:bg-pink-500 hover:text-white transition-colors duration-300 focus:outline-none focus:bg-pink-500 focus:text-white"
-                            aria-label="Like"
-                        >
+                <section class="bg-white dark:bg-gray-900">
+                    <div class="gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
+                        <div class="font-light text-gray-500 sm:text-lg dark:text-gray-400">
+                            <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-teal-300">{{$post->title}}</h2>
+                            <p class="mb-4">
+                                {{$post->content_raw}}
+                            </p>
+                            <p>{{$post->user->nickname}}</p>
+                            <p>{{$post->created_at->diffForHumans()}}</p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 mt-8">
+                            <img class="w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/office-long-2.png" alt="office content 1">
+                            <img class="mt-4 w-full lg:mt-10 rounded-lg" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/office-long-1.png" alt="office content 2">
+                        </div>
+                        <button class="flex items-center justify-center space-x-2 text-gray-700 hover:text-red-500">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M12 5l7 7-7 7"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4c-3.24 0-6.2 1.9-7.55 4.89-.83 1.64-1.4 3.48-1.63 5.36-.24 1.97-.13 3.95.28 5.89.07.33.12.67.17 1h18.06c.05-.33.1-.67.17-1 .41-1.94.52-3.92.28-5.89-.23-1.88-.8-3.72-1.63-5.36C18.2 5.9 15.24 4 12 4z" />
                             </svg>
+                            <span>Like</span>
                         </button>
-                        <p class="ml-3 text-gray-700">Нравится</p>
                     </div>
-                </div>
-                <div class="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-y-16 gap-x-8 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-                    <article class="flex max-w-xl flex-col items-start justify-between">
-                        <div class="flex items-center gap-x-4 text-xs">
-                            <time datetime="2020-03-16" class="text-gray-500">date publication</time>
-                            <a href="#" class="relative z-10 rounded-full bg-gray-50 py-1.5 px-3 font-medium text-gray-600 hover:bg-gray-100">category</a>
-                        </div>
-                        <div class="group relative">
-                            <h3 class="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
-                                <a href="#">
-                                    <span class="absolute inset-0"></span>
-                                    first words from description
-                                </a>
-                            </h3>
-                            <p class="mt-5 text-sm leading-6 text-gray-600 line-clamp-3">{{$post->content_raw}}</p>
-                        </div>
+                </section>
+            <!-- Comment Section -->
+                        <div class="p-4">
+                            <h2 class="text-2xl font-bold mb-2">Comments</h2>
 
-                        <div class="relative mt-8 flex items-center gap-x-4">
-                           <a href="">
+                            <div class="bg-white rounded-lg overflow-hidden shadow-lg divide-y divide-gray-200">
 
-                               <img src="{{$post->user->profilePictureUrl()}}" alt="" class="h-10 w-10 rounded-full bg-gray-50">
-                           </a>
-                            <div class="text-sm leading-6">
-                                <p class="font-semibold text-gray-900">
-                                    <a href="{{route('user_profile.index',$post->user->nickname)}}">
-                                        <span class="absolute inset-0"></span>
-                                        Mauthor
-                                    </a>
-                                </p>
-                                <p class="text-gray-600">job title</p>
+                                <div class="p-4">
+                                    <div class="flex items-center mb-2">
+                                        <div class="w-10 h-10 rounded-full mr-4 bg-gray-400"></div>
+                                        <div>
+                                            <p class="font-bold">Jane Doe</p>
+                                            <p class="text-sm text-gray-600">Posted on March 17, 2023</p>
+                                        </div>
+                                    </div>
+                                    <p class="text-gray-800">Nulla faucibus lectus quis malesuada luctus. Pellentesque commodo id leo sed malesuada. Vestibulum sagittis, lorem non cursus lacinia, mauris mauris vulputate tellus, nec pellentesque velit est vel nisi.</p>
+                                </div>
+
+                                <!-- Comment Form -->
+                                <form class="p-4" action="{{route('post.comment',$post->id)}}" method="POST">
+                                    @csrf
+                                    <div class="flex flex-col mb-4">
+                                        <label class="mb-2 font-bold text-gray-800" for="name">Name</label>
+                                        <input class="bg-gray-100 border-2 border-gray-200 p-2 rounded-lg focus:outline-none focus:bg-white" type="text" name="name" id="name">
+                                    </div>
+                                    <div class="flex flex-col mb-4">
+                                        <label class="mb-2 font-bold text-gray-800" for="comment">Comment</label>
+                                        <textarea name="comment-{{$post->id}}" class="bg-gray-100 border-2 border-gray-200 p-2 rounded-lg focus:outline-none focus:bg-white{{$errors->has("comment-{$post->id}") ? 'is-invalid': ''}} "
+                                                  id="comment"
+                                                  cols="10"
+                                                  rows="2"></textarea>
+                                        @if($errors->has("comment-{$post->id}"))
+                                            <div class="invalid-feedback">
+                                            {{$errors->first("comment-{$post->id}")}}
+                                            </div>
+                                        @endif
+                                    </div>
+                                        <button type="submit" class="bg-blue-500 text-teal-300 font-bold py-2 px-4 rounded">
+                                            Comment
+                                        </button>
+                                </form>
                             </div>
                         </div>
-                    </article>
 
-                    <!-- More posts... -->
-                </div>
-            </div>
-        </div>
     </main>
+
+    <span class="p-16 text-justify">{{$posts->links()}}</span>
     @endforeach
     @endif
 @endsection

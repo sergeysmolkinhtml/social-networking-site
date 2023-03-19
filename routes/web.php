@@ -51,8 +51,12 @@ Route::get('/user/{nickname}/friends/',[PublicUserFriendsController::class,'inde
  * Blog Posts
  */
 Route::middleware('auth')->group(function () {
-    Route::post('/post', [PostController::class, 'post'])->name('blog.post');
+    Route::post('post', [PostController::class, 'store'])->name('blog.post');
+    Route::get('post/detail',[PostController::class,'create'])->name('post.detail');
 });
+
+Route::post('post/{post_id}/reply',[PostController::class,'comment'])->name('post.comment');
+
 
 Route::middleware([
     'auth:sanctum',
