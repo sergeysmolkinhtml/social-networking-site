@@ -86,6 +86,21 @@ class User extends Authenticatable
 
     }
 
+    public function hasLikedPost(BlogPost $post): bool
+    {
+        return (bool)$post->likes()
+            ->where('likeable_id',$post->id)
+            ->where('likeable_type',get_class($post))
+            ->where('user_id',$this->id)
+            ->count();
+    }
+
+    public function likes(): HasMany
+    {
+        return $this->hasMany(Like::class,'user_id');
+    }
+
+
     public function gender(): HasOne
     {
         return $this->hasOne(Gender::class,'user_id');
@@ -115,14 +130,14 @@ class User extends Authenticatable
         return strtolower($this->nickname ? : $this->name);
     }
 
-    public function getFullNameAttribute()
+    public function getFullNameAttribute(): string
     {
         return Str::ucfirst("{$this->name} {$this->last_name}");
     }
 
 
     // Gravatar
-    public function profilePictureUrl()
+    public function profilePictureUrl(): string
     {
         return "https://www.gravatar.com/avatar/md5($this->email)?s=50";
     }

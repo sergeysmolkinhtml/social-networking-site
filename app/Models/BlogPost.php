@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class BlogPost extends Model
@@ -52,9 +53,10 @@ class BlogPost extends Model
         return $this->hasMany(Comment::class);
     }
 
-    public function scopeNotComments($query)
+    public function likes(): MorphMany
     {
-        return $query->whereNull('parent_id');
+        return $this->morphMany(Like::class,'likeable');
     }
+
 
 }

@@ -35,17 +35,48 @@ class PostController extends Controller
 
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function comment(Request $request, $post_id): RedirectResponse
     {
         $data = $request->input();
+
+        $this->validate($request,[
+            "comment-$post_id"=>'required|string|max:255',
+        ]);
+
         $comment = new Comment();
         $comment->body = $data["comment-$post_id"];;
         $comment->post_id = $post_id;
         $comment->user_id = auth()->id();
         $comment->save();
 
+
         return back()->with('info', 'Comment added successfully.');
 
     }
+
+    public function like($post_id)
+    {
+        $post = BlogPost::find($post_id);
+
+        if( ! $post) redirect()->route('news.index');
+
+        if( ! Auth::user()->isFriendWith($post->user)) {
+          return redirect()->route('news.index');
+        }
+
+        if (Auth::user()->hasLikedPost($post)){
+            return redirect()->route('news.index');
+        }
+
+        $post->likes()->create(['user_id'=>Auth::user()->id]);
+
+        return redirect()->back();
+
+    }
+
+
 
 }

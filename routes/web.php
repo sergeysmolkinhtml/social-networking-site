@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\FriendsController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImageController;
@@ -36,7 +37,6 @@ Route::middleware('auth')->group(function (){
     Route::get( 'friends/add/{nickname}',[MyFriendsController::class,'addFriend'])->name('friend.add');
     Route::get( 'friends/accept/{nickname}',[MyFriendsController::class,'acceptFriend'])->name('friend.accept');
     Route::post( 'friends/delete/{nickname}',[MyFriendsController::class,'deleteFriend'])->name('friend.delete');
-
     Route::post('{nickname}/pfp/upload',[ImageController::class,'upload'])->name('pfp.upload');
 
 });
@@ -52,10 +52,15 @@ Route::get('/user/{nickname}/friends/',[PublicUserFriendsController::class,'inde
  */
 Route::middleware('auth')->group(function () {
     Route::post('post', [PostController::class, 'store'])->name('blog.post');
-    Route::get('post/detail',[PostController::class,'create'])->name('post.detail');
+    Route::get( 'post/detail',[PostController::class,'create'])->name('post.detail');
+    Route::get('post/{post_id}/like',[PostController::class,'like'])->name('post.like');
 });
 
 Route::post('post/{post_id}/reply',[PostController::class,'comment'])->name('post.comment');
+
+
+
+
 
 
 Route::middleware([

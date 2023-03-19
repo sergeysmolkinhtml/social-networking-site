@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\BlogPost;
 use App\Models\User;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
@@ -22,7 +23,11 @@ class ProfileController extends Controller
             abort(404);
         }
 
-        return view('profile.public-index',compact('user'));
+        $posts = $user->posts()->get();
+
+        return view('profile.public-index',[
+            'user'=>$user,
+            ]);
     }
 
     /**

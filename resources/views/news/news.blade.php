@@ -113,15 +113,21 @@
                             <img class="w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/office-long-2.png" alt="office content 1">
                             <img class="mt-4 w-full lg:mt-10 rounded-lg" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/office-long-1.png" alt="office content 2">
                         </div>
+                        @if($post->user->id !== Auth::user()->id)
                         <button class="flex items-center justify-center space-x-2 text-gray-700 hover:text-red-500">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4c-3.24 0-6.2 1.9-7.55 4.89-.83 1.64-1.4 3.48-1.63 5.36-.24 1.97-.13 3.95.28 5.89.07.33.12.67.17 1h18.06c.05-.33.1-.67.17-1 .41-1.94.52-3.92.28-5.89-.23-1.88-.8-3.72-1.63-5.36C18.2 5.9 15.24 4 12 4z" />
                             </svg>
-                            <span>Like</span>
+                            <span><a href="{{route('post.like',$post->id)}}">Like</a>
+
+                            </span>
                         </button>
+                        @endif
+                        <li class="list-inline-item">{{$post->likes->count()}} {{Str::plural('like', $post->likes->count())}}</li>
                     </div>
                 </section>
             <!-- Comment Section -->
+
                         <div class="p-4">
                             <h2 class="text-2xl font-bold mb-2">Comments</h2>
 
@@ -131,7 +137,7 @@
                                     <div class="flex items-center mb-2">
                                         <div class="w-10 h-10 rounded-full mr-4 bg-gray-400"></div>
                                         <div>
-                                            <p class="font-bold">Jane Doe</p>
+                                            <p class="font-bold"></p>
                                             <p class="text-sm text-gray-600">Posted on March 17, 2023</p>
                                         </div>
                                     </div>
@@ -163,7 +169,6 @@
                                 </form>
                             </div>
                         </div>
-
     </main>
 
     <span class="p-16 text-justify">{{$posts->links()}}</span>
