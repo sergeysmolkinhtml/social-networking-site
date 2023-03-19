@@ -20,9 +20,8 @@ class CommentCreateRequest extends FormRequest
      *
      * @return array<string, Rule|array|string>
      */
-    public function rules($post_id): array
+    public function rules(): array
     {
-        dd($post_id);
         return [
             'comment' => 'required|string|max:255'
         ];
