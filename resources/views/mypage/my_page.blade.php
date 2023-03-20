@@ -36,14 +36,19 @@
                         <p class="text-gray-400">Comments</p></div>
                 </div>
                 <div class="relative">
-                    @isset($path)
-                        <img src="{{asset('/storage/' . $path) }}" class="w-48 h-48 bg-indigo-100 mx-auto rounded shadow-2xl absolute inset-x-0 top-0 -mt-24 flex items-center justify-center text-indigo-500" alt="" >
-                    @endisset
-                    <form action="{{route('pfp.upload',auth()->user()->getNicknameOrName() )}}" method="post" enctype="multipart/form-data">
-                        @csrf
-                        <input type="file" name="image">
-                        <button type="submit">send</button>
-                    </form>
+                    @if(! $user->profile_photo_path)
+                        @isset($path)
+                            <img src="{{asset('/storage/' . $path) }}" class="w-48 h-48 bg-indigo-100 mx-auto rounded shadow-2xl absolute inset-x-0 top-0 -mt-24 flex items-center justify-center text-indigo-500" alt="" >
+                        @endisset
+                    @else
+                        <img src="{{$user->getPfpPath($user->id) . $user->profile_photo_path}}" class="w-48 h-48 bg-indigo-100 mx-auto rounded shadow-2xl absolute inset-x-0 top-0 -mt-24 flex items-center justify-center text-indigo-500" alt="" >
+                    @endif
+                        <form action="{{route('pfp.upload',auth()->user()->getNicknameOrName() )}}"
+                                  method="post" enctype="multipart/form-data">
+                                @csrf
+                                <input type="file" name="image" id="image">
+                                <button type="submit">sends</button>
+                            </form>
                 </div>
                 <div class="space-x-8 flex justify-between mt-32 md:mt-0 md:justify-center">
                     <button href="{{route('dialogues.dash',auth()->user()->name)}}" class="text-white py-2 px-4 uppercase rounded bg-blue-400 hover:bg-blue-500 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5">

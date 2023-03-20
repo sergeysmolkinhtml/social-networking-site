@@ -142,6 +142,28 @@ class User extends Authenticatable
         return "https://www.gravatar.com/avatar/md5($this->email)?s=50";
     }
 
+    public function getPfpPath($user_id): string
+    {
+        $path = "uploads/pfps/id{$user_id}";
+
+        if(! file_exists($path)){
+            mkdir($path,0777,true);
+        }
+
+        return "/$path/";
+    }
+
+    public function clearPfps($user_id)
+    {
+        $path = "uploads/pfps/id{$user_id}";
+
+        if ( file_exists( public_path("/$path") ) ) {
+            foreach (glob(public_path("/$path/*" )) as $pfp ){
+                unlink($pfp);
+            }
+        }
+    }
+
     /*
      * Friends Logic
      */

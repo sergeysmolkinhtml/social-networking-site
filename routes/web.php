@@ -37,7 +37,7 @@ Route::middleware('auth')->group(function (){
     Route::get( 'friends/add/{nickname}',[MyFriendsController::class,'addFriend'])->name('friend.add');
     Route::get( 'friends/accept/{nickname}',[MyFriendsController::class,'acceptFriend'])->name('friend.accept');
     Route::post( 'friends/delete/{nickname}',[MyFriendsController::class,'deleteFriend'])->name('friend.delete');
-    Route::post('{nickname}/pfp/upload',[ImageController::class,'upload'])->name('pfp.upload');
+    Route::post('{nickname}/pfp/upload',[ImageController::class,'uploadPfp'])->name('pfp.upload');
 
 });
 
