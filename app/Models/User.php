@@ -32,6 +32,7 @@ class User extends Authenticatable
         'email',
         'password',
 
+        'gender',
         'nickname',
         'email',
         'date_of_birth',
@@ -41,7 +42,7 @@ class User extends Authenticatable
         'last_visited_from',
         'remember_token',
         'verification_token',
-        'google_id'
+        'google_id',
 
     ];
 

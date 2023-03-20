@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
 <x-guest-layout>
     <x-authentication-card>
         <x-slot name="logo">
@@ -28,7 +30,17 @@
                 <x-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
                 <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
             </div>
+            <div class="form-group">
+                <div class="row col-md-7">
+                    <select name="gender"
+                            class="custom-select @error('gender') is-invalid @enderror">
 
+                        <option value="">Gender</option>
+                        <option value="m" {{old('gender') === 'm' ? 'selected' : ''}}> Male </option>
+                        <option value="f" {{old('gender') === 'f' ? 'selected' : ''}}> Female </option>
+                    </select>
+                </div>
+            </div>
             @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
                 <div class="mt-4">
                     <x-label for="terms">
@@ -45,6 +57,7 @@
                     </x-label>
                 </div>
             @endif
+
 
             <div class="flex items-center justify-end mt-4">
                 <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
