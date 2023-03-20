@@ -35,6 +35,7 @@
                         <p class="text-gray-400">Comments</p></div>
                 </div>
                 <div class="relative">
+                    @widget('verified',['id'=>$user->id])
                     @if(! $user->profile_photo_path)
                         @isset($path)
                             <img src="{{asset('/storage/' . $path) }}" class="w-48 h-48 bg-indigo-100 mx-auto rounded shadow-2xl absolute inset-x-0 top-0 -mt-24 flex items-center justify-center text-indigo-500" alt="" >

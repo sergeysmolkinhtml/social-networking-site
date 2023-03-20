@@ -18,7 +18,11 @@ class ImageController extends Controller
     {
         $user = User::where('nickname',$nickname)->first();
 
-        if( ! Auth::user()->id === $user->id){
+        if (!$user) {
+            return redirect()->route('news.index');
+        }
+
+        if( Auth::user()->id !== $user->id){
             return redirect()->route('news.index');
         }
 
