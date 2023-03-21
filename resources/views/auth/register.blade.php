@@ -12,8 +12,25 @@
             @csrf
 
             <div>
-                <x-label for="name" value="{{ __('Name') }}" />
+                <x-label for="name" value="{{ __('First Name') }}" />
                 <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+            </div>
+
+            <div class="mt-4">
+                <x-label for="last_name" value="{{ __('Last Name') }}" />
+                <x-input id="last_name" class="block mt-1 w-full" type="text" name="last_name" :value="old('last_name')" required autofocus autocomplete="name" />
+            </div>
+
+            <select name="gender" class="mt-4 border-gray-300 focus:border-blue-300 focus:ring focus:ring-opacity-50 rounded-md shadow-sm @error('gender') is-invalid @enderror">
+
+                <option value="">Gender</option>
+                <option value="m" {{old('gender') === 'm' ? 'selected' : ''}}> Male </option>
+                <option value="f" {{old('gender') === 'f' ? 'selected' : ''}}> Female </option>
+            </select>
+
+            <div class="mt-4">
+                <x-label for="nickname" value="{{ __('Nickname') }}" />
+                <x-input id="nickname" class="block mt-1 w-full" type="text" name="nickname" :value="old('nickname')" required autocomplete="nickname" />
             </div>
 
             <div class="mt-4">
@@ -30,17 +47,7 @@
                 <x-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
                 <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
             </div>
-            <div class="form-group">
-                <div class="row col-md-7">
-                    <select name="gender"
-                            class="custom-select @error('gender') is-invalid @enderror">
 
-                        <option value="">Gender</option>
-                        <option value="m" {{old('gender') === 'm' ? 'selected' : ''}}> Male </option>
-                        <option value="f" {{old('gender') === 'f' ? 'selected' : ''}}> Female </option>
-                    </select>
-                </div>
-            </div>
             @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
                 <div class="mt-4">
                     <x-label for="terms">
