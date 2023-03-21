@@ -13,41 +13,38 @@ class Register extends Component
 {
     use PasswordValidationRules;
 
-    public $currentStep = 1;
+    public $currentStep = 0;
 
     public $name, $last_name, $gender,$terms;
     public $nickname, $email, $password, $password_confirmation;
 
 
-    public function render()
+    public function render(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.register');
     }
 
-    public function firstStepSubmit()
+    public function nextStep()
     {
-        $validatedData = $this->validate([
-           'name' => 'required',
-           'last_name' => 'required',
-
+        $this->validate([
+           'name'      => 'required|string|min:3|max:50',
+           'last_name' => 'required|string|min:3',
+           'gender'    => 'required|string|regex:/^[mf]$/',
         ]);
 
-        $this->currentStep = 2;
+        $this->currentStep++;
     }
 
-    public function secondStepSubmit()
-    {
-        $validatedData = $this->validate([
-            'nickname' => 'required',
-            'email'    => 'required',
-            'password' =>  $this->passwordRules(),
-            'terms'    => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['required', 'accepted'] : '',
-        ]);
-
-    }
 
     public function submitForm()
     {
+        $this->validate([
+            'nickname' => 'required|min:3|max:50|unique:users',
+            'email'    => 'required|email|unique:users',
+            'password' =>  $this->passwordRules(),
+            'terms'    =>  Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['required', 'accepted'] : '',
+        ]);
+
         User::create([
             'name'     =>  $this->name,
             'last_name'=>  $this->last_name,
@@ -59,18 +56,16 @@ class Register extends Component
 
         # Log In after registration
 
-        if (Auth::attempt([
-            'nickname' => $this->nickname,
-            'password' => $this->password,
-            ])) {
-
-            return redirect()->intended('dashboard');
+        if (Auth::attempt(['nickname' => $this->nickname,
+                           'password' => $this->password,]))
+        {
+            return redirect()->route('dashboard'); // intended
         }
     }
 
-    public function back($step)
+    public function back()
     {
-        $this->currentStep = $step;
+        $this->currentStep-- ;
     }
 
 }
