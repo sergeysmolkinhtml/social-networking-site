@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class="bg-white border-b dark:bg-gray-800 border-gray-100 dark:border-gray-transparent">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -69,13 +69,22 @@
                     </div>
                 @endif
 
+                <button id='switchTheme' class="bg-gray-100 hover:bg-gray-200 text-gray-800 hover:text-gray-900 rounded-full p-2 transition duration-200 ease-in-out">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-6 w-6">
+                        <path d="M11.5 5C7.91 5 5 7.91 5 11.5S7.91 18 11.5 18 18 15.09 18 11.5 15.09 5 11.5 5zm0 10c-2.48 0-4.5-2.02-4.5-4.5S9.02 6 11.5 6 16 8.02 16 10.5 13.98 15 11.5 15z"/>
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                    </svg>
+                </button>
+
+
                 <!-- Settings Dropdown -->
                 <div class="ml-3 relative">
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
                             @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                                 <button class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
-                                    <img class="h-8 w-8 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
+                                    <span class="mr-2 text-gray-500 dark:text-gray-100">{{Auth::user()->getName() }}</span>
+                                    <img class="h-8 w-8 rounded-full object-cover" src="{{ Auth::user()->profile_photo_path }}" alt="{{ Auth::user()->name }}" />
                                 </button>
                             @else
                                 <span class="inline-flex rounded-md">

@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\CommentsController;
-use App\Http\Controllers\FriendsController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\MyFriendsController;
@@ -20,7 +19,9 @@ use Illuminate\Support\Facades\Route;
 require 'social.php';
 require 'chat.php';
 
-Route::get( '', [NewsPage::class, 'index'])->name('news.index');
+
+
+Route::get( 'news', [NewsPage::class, 'index'])->name('news.index');
 Route::get('search',[SearchController::class,'results'])->name('search.results');
 Route::post('notifications',[NotificationsController::class,'get']);
 Route::get('/alert',function (){
@@ -36,7 +37,7 @@ Route::middleware('auth')->group(function (){
     Route::get( '{nickname}/friends',[MyFriendsController::class,'index'])->name('friends.index');
     Route::get( 'friends/add/{nickname}',[MyFriendsController::class,'addFriend'])->name('friend.add');
     Route::get( 'friends/accept/{nickname}',[MyFriendsController::class,'acceptFriend'])->name('friend.accept');
-    Route::post( 'friends/delete/{nickname}',[MyFriendsController::class,'deleteFriend'])->name('friend.delete');
+    Route::post('friends/delete/{nickname}',[MyFriendsController::class,'deleteFriend'])->name('friend.delete');
     Route::post('{nickname}/pfp/upload',[ImageController::class,'uploadPfp'])->name('pfp.upload');
 
 });
@@ -61,14 +62,12 @@ Route::post('post/{post_id}/reply',[PostController::class,'comment'])->name('pos
 
 
 
-
-
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/dashboard', function () {
+    Route::get('/', function () {
         return view('dashboard');
     })->name('dashboard');
 });
