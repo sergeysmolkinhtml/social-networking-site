@@ -12,6 +12,9 @@
 
                 <x-section-border />
             @endif
+                <!-- Extended Profile -->
+                @livewire('extended-profile')
+                <x-section-border />
 
                  <!-- About -->
                 @livewire('update-about')

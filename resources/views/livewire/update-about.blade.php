@@ -1,6 +1,6 @@
 <x-form-section submit="updateAbout">
     <x-slot name="title">
-        About Me
+        About me
     </x-slot>
 
     <x-slot name="description">

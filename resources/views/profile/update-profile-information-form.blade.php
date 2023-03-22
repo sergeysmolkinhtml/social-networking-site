@@ -68,7 +68,8 @@
 
         <!-- Gender -->
         <div class="col-span-6 sm:col-span-4">
-            <select class="border-gray-300 dark:bg-gray-700 dark:text-gray-400 focus:border-indigo-300 focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+            <x-label for="gender" value="{{ __('Gender') }}" />
+            <select id="gender" class="border-gray-300 dark:bg-gray-700 dark:text-gray-400 focus:border-indigo-300 focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                     wire:model.defer="state.gender">
                 <option value="">{{__('Gender')}}</option>
                 <option value="m">{{__('Male')}}</option>
