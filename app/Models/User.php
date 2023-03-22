@@ -136,6 +136,7 @@ class User extends Authenticatable
 
     public function getFullNameAttribute(): string
     {
+
         return Str::ucfirst("{$this->name} {$this->last_name}");
     }
 
