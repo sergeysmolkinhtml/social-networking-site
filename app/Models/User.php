@@ -136,10 +136,26 @@ class User extends Authenticatable
 
     public function getFullNameAttribute(): string
     {
-
         return Str::ucfirst("{$this->name} {$this->last_name}");
     }
 
+    /**
+     * @param $value
+     * @return void
+     */
+    public function setNameAttribute($value): void
+    {
+        $this->attributes['name'] = Str::ucfirst($value);
+    }
+
+    /**
+     * @param $value
+     * @return void
+     */
+    public function setLastNameAttribute($value): void
+    {
+        $this->attributes['last_name'] = Str::ucfirst($value);
+    }
 
     // Gravatar
     public function profilePictureUrl(): string
