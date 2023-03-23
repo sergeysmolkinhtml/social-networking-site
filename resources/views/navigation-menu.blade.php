@@ -12,8 +12,8 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        {{env('APP_NAME')}}
+                    <x-nav-link href="{{ route('user_candidate.index', Auth::user())}}" :active="request()->routeIs('user_settings.index')">
+                           Candidate public profile
                     </x-nav-link>
                 </div>
             </div>

@@ -11,6 +11,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublicUserFriendsController;
 use App\Http\Controllers\SearchController;
+use App\Http\Livewire\Pages\CandidateProfile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -35,6 +36,10 @@ Route::get( '/alert',function (){
 /**
  * Profile
  */
+Route::get( 'user/{nickname}',    [ProfileController::class,'profile'])->name('user_profile.index');
+Route::get( '{nickname}/friends', [FriendsController::class,'index'])->name('friends.index');
+
+
 Route::middleware('auth')->group(function (){
     Route::get( 'friends/add/{nickname}',   [FriendsController::class,'addFriend'])->name('friend.add');
     Route::get( 'friends/accept/{nickname}',[FriendsController::class,'acceptFriend'])->name('friend.accept');
@@ -42,8 +47,12 @@ Route::middleware('auth')->group(function (){
     Route::post('{nickname}/pfp/upload',    [ImageController::class,  'uploadPfp'])->name('pfp.upload');
 });
 
-Route::get( 'user/{nickname}', [ProfileController::class,'profile'])->name('user_profile.index');
-Route::get( '{nickname}/friends',       [FriendsController::class,'index'])->name('friends.index');
+
+/**
+ * Candidate Profile
+ */
+Route::get( 'candidate/id/{user}',[CandidateProfile::class,'render'])->name('user_candidate.index');
+
 
 /**
  * Blog Posts

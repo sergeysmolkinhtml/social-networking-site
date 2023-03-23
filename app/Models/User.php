@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -254,6 +255,11 @@ class User extends Authenticatable
     public function isFriendWith(User $user): bool
     {
         return (bool)$this->friends()->where('id', $user->id)->count();
+    }
+
+    public function getAgeHuman(): int
+    {
+        return Carbon::parse($this->date_of_birth)->age ? : '';
     }
 
 }
