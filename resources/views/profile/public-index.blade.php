@@ -21,7 +21,7 @@
         <div class="p-8 bg-white shadow mt-24">
             <div class="grid grid-cols-1 md:grid-cols-3">
                 <div class="grid grid-cols-3 text-center order-last md:order-first mt-20 md:mt-0">
-                    <a href="{{route('user_friends.index', $user->nickname )}}"><div><p class="font-bold text-gray-700 text-xl">
+                    <a href="{{route('friends.index', $user->nickname )}}"><div><p class="font-bold text-gray-700 text-xl">
                                 @if(!$user->friends()->count())
                                     0
                                 @else
@@ -36,27 +36,27 @@
                 </div>
                 <div class="relative">
                     @widget('verified',['id'=>$user->id])
+
                     @if(! $user->profile_photo_path)
                         @isset($path)
-                            <img src="{{asset('/storage/' . $path) }}" class="w-48 h-48 bg-indigo-100 mx-auto rounded shadow-2xl absolute inset-x-0 top-0 -mt-24 flex items-center justify-center text-indigo-500" alt="" >
+                            <img src="{{asset('storage/' . $path) }}" class="w-48 h-48 bg-indigo-100 mx-auto rounded shadow-2xl absolute inset-x-0 top-0 -mt-24 flex items-center justify-center text-indigo-500" alt="" >
                         @endisset
+
                     @else
                         <img src="{{$user->getPfpPath($user->id) . $user->profile_photo_path}}" class="w-48 h-48 bg-indigo-100 mx-auto rounded shadow-2xl absolute inset-x-0 top-0 -mt-24 flex items-center justify-center text-indigo-500" alt="" >
                     @endif
 
-                    @isset($path)
-                        <img src="{{asset('/storage/' . $path) }}" class="w-48 h-48 bg-indigo-100 mx-auto rounded shadow-2xl absolute inset-x-0 top-0 -mt-24 flex items-center justify-center text-indigo-500" alt="" >
-                    @endisset
 
                     @if(Auth::user()->id === $user->id)
-                    <form action="{{route('pfp.upload',$user->getNicknameOrName() )}}" method="post" enctype="multipart/form-data">
+                    <form action="{{route('pfp.upload',$user->getNicknameOrName() )}}"  method="post" enctype="multipart/form-data">
                         @csrf
                         <input type="file" name="image">
-                        <button type="submit">send</button>
+                        <button type="submit" class="ml-20">send</button>
                     </form>
                     @endif
 
                 </div>
+                @if(!Auth::user())
                 <div class="space-x-8 flex justify-between mt-32 md:mt-0 md:justify-center">
                     <button  class="text-white py-2 px-4 uppercase rounded bg-blue-400 hover:bg-blue-500 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5">
                         <a href="{{route('dialogues.dash',$user->nickname) }}">
@@ -67,6 +67,7 @@
                     <button class="text-white py-2 px-4 uppercase rounded bg-gray-700 hover:bg-gray-800 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5">
                        <a href="{{route('friend.add',$user->nickname)}}"> Add Friend </a>
                     </button>
+                    @endif
                 </div>
             </div>
             <div class="mt-20 text-center border-b pb-12"><h1 class="text-4xl font-medium text-gray-700">

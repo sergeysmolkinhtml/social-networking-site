@@ -3,25 +3,30 @@
 namespace App\Http\Controllers;
 use App\Models\Friends;
 use App\Models\User;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
-class MyFriendsController extends Controller
+class FriendsController extends Controller
 {
-    public function index()
+    public function index($nickname): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $friends = Auth::user()->friends();
+        $user = User::where('nickname',$nickname)->first();
 
+        $friends = Auth::user()->friends();
         $friendsRequests = Auth::user()->friendRequests();
 
-
-        return view('mypage.friends.index',
+        return view('profile.partials.friends',
             compact('friends',
                    'friendsRequests',
+                            'user'
             ));
     }
 
-    public function addFriend($nickname)
+    public function addFriend($nickname): RedirectResponse
     {
         $user = User::where('nickname', $nickname)->first();
 

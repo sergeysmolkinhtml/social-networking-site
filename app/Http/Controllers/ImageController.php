@@ -14,7 +14,7 @@ use Intervention\Image\Facades\Image;
 
 class ImageController extends Controller
 {
-    public function uploadPfp(Request $request,$nickname)
+    public function uploadPfp(Request $request,$nickname): RedirectResponse
     {
         $user = User::where('nickname',$nickname)->first();
 

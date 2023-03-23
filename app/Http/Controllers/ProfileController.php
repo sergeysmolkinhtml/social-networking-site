@@ -6,6 +6,9 @@ use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\BlogPost;
 use App\Models\User;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,7 +18,7 @@ use Inertia\Response;
 
 class ProfileController extends Controller
 {
-    public function profile($nickname)
+    public function profile($nickname): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         $user = User::where('nickname',$nickname)->first();
 

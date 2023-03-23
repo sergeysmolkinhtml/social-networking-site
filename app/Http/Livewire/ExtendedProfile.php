@@ -25,10 +25,12 @@ class ExtendedProfile extends Component
         $this->state = Auth::user()->withoutRelations()->toArray();
 
         if(Auth::user()->date_of_birth){
+
             $this->birthdayArr = explode("-",Auth::user()->date_of_birth);
-            $this->state['bday']   = $this->birthdayArr[2];
+            $this->state['bday']   = substr($this->birthdayArr[2],0,2);
             $this->state['bmonth'] = $this->birthdayArr[1];
             $this->state['byear']  = $this->birthdayArr[0];
+
         } else {
             $this->state['bday']      = '';
             $this->state['bmonth']    = '';

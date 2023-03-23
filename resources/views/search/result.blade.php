@@ -7,7 +7,7 @@
             no users found
         @else
             @foreach($users as $user)
-                @include('mypage.partials.userblock')
+                @include('profile.partials.userblock')
             @endforeach
         @endif
     </div>

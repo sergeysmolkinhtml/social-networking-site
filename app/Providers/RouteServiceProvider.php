@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\User;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
@@ -24,6 +25,11 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // if user's in DB or 404
+        Route::bind('user',function ($value){
+            return User::findOrFail($value);
+        });
+
         $this->configureRateLimiting();
 
         $this->routes(function () {
