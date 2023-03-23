@@ -36,7 +36,11 @@ class UpdateAbout extends Component
 
         $user = Auth::user();
 
-        $user->update(['status_description' => $this->state['status_description']]);
+        $user->update([
+
+            'status_description' => $this->state['status_description']
+
+            ]);
 
         $this->emit('saved');
     }

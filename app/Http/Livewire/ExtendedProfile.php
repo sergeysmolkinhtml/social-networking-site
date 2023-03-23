@@ -50,15 +50,25 @@ class ExtendedProfile extends Component
 
     public function updateExtendedProfile()
     {
+
         Validator::make($this->state,[
-            'byear' => ['digits:4','integer'],
-            'job_title' => ['string','max:50']
+            'byear'        => ['digits:4','integer'],
+            'job_title'    => ['string','max:50'],
+            'city'         => ['string','max:50'],
+            'work_formats' => ['string','max:50'],
+            'languages'    => ['string','max:200'],
+            'skills'       => ['string','max:200'],
         ])->validate();
 
         Auth::user()->update([
             'date_of_birth' => $this->setStrBirthday(),
             'job_title' => $this->state['job_title'],
+            'city'      => $this->state['city'],
+            'work_formats'=> $this->state['work_formats'],
+            'languages'  => $this->state['languages'],
+            'skills'    => $this->state['skills'],
         ]);
+
 
         $this->emit('saved');
     }

@@ -52,7 +52,7 @@
 
 
                     @if(Auth::user()->id === $user->id)
-                    <form action="{{route('pfp.upload',$user->getNicknameOrName() )}}"  method="post" enctype="multipart/form-data">
+                    <form action="{{route('pfp.upload', $user->getNicknameOrName() )}}"  method="post" enctype="multipart/form-data">
                         @csrf
                         <input type="file" name="image">
                         <button type="submit" class="ml-20">send</button>
