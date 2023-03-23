@@ -37,14 +37,18 @@
                 <div class="relative">
                     @widget('verified',['id'=>$user->id])
 
-                    @if(! $user->profile_photo_path)
+
+                    <img src="{{$user->profile_photo_url}}" class="w-48 h-48 bg-indigo-100 mx-auto rounded shadow-2xl absolute inset-x-0 top-0 -mt-24 flex items-center justify-center text-indigo-500" alt="" >
+
+                    {{--@if(! $user->profile_photo_path)
+
                         @isset($path)
                             <img src="{{asset('storage/' . $path) }}" class="w-48 h-48 bg-indigo-100 mx-auto rounded shadow-2xl absolute inset-x-0 top-0 -mt-24 flex items-center justify-center text-indigo-500" alt="" >
                         @endisset
 
                     @else
                         <img src="{{$user->getPfpPath($user->id) . $user->profile_photo_path}}" class="w-48 h-48 bg-indigo-100 mx-auto rounded shadow-2xl absolute inset-x-0 top-0 -mt-24 flex items-center justify-center text-indigo-500" alt="" >
-                    @endif
+                    @endif--}}
 
 
                     @if(Auth::user()->id === $user->id)
