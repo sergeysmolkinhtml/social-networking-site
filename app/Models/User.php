@@ -194,8 +194,7 @@ class User extends Authenticatable
     // my friend
     public function friendsOfMine(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'friends', 'user_id', 'friend_id')
-            ->withPivot('status');
+        return $this->belongsToMany(User::class, 'friends', 'user_id', 'friend_id');
     }
 
     // exact friend
@@ -214,7 +213,7 @@ class User extends Authenticatable
     // friend requests
     public function friendRequests(): Collection
     {
-        return $this->friendsOfMine()->wherePivot('accepted', false)->get();
+        return $this->friendsOf()->wherePivot('accepted', false)->get();
     }
 
     //request for "pending"
