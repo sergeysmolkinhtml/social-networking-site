@@ -37,6 +37,7 @@ class ExtendedProfile extends Component
             $this->state['byear']     = '';
 
         }
+
     }
 
     public function setStrBirthday()
@@ -59,6 +60,7 @@ class ExtendedProfile extends Component
             'languages'    => ['string','max:200'],
             'skills'       => ['string','max:200'],
         ])->validate();
+
 
         Auth::user()->update([
             'date_of_birth' => $this->setStrBirthday(),

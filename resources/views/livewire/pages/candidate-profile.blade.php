@@ -1,9 +1,5 @@
 <x-app-layout>
-    <x-slot name='header'>
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-60 leading-tight">
-            Candidate profile
-        </h2>
-    </x-slot>
+
     <!-- component -->
     <link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/styles/tailwind.css">
     <link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css">
@@ -35,7 +31,7 @@
                             <div class="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center">
                                 <div class="py-6 px-3 mt-32 sm:mt-0">
                                     <div class="mr-4 p-3 text-center">
-                                        <span class="text-xl font-bold block uppercase tracking-wide text-blueGray-600">{{$user->work_format ?: '-'}}</span><span class="text-sm text-blueGray-400"></span>
+                                        <span class="text-xl font-bold block uppercase tracking-wide text-blueGray-600">{{$user->work_formats ?: '-'}}</span><span class="text-sm text-blueGray-400"></span>
                                     </div>
                                 </div>
                             </div>
@@ -46,7 +42,7 @@
                                         <span class="text-xl font-bold block uppercase tracking-wide text-blueGray-600">Experience</span><span class="text-sm text-blueGray-400">{{$user->work_experience_years}}</span>
                                     </div>
                                     <div class="mr-4 p-3 text-center">
-                                        <span class="text-xl font-bold block uppercase tracking-wide text-blueGray-600">Achiev</span><span class="text-sm text-blueGray-400">{{$user->achievements}}</span>
+                                        <span class="text-xl font-bold block uppercase tracking-wide text-blueGray-600">Achiev</span><span class="text-sm text-blueGray-400">{{$user->languages}}</span>
                                     </div>
                                     <div class="lg:mr-4 p-3 text-center">
                                         <span class="text-xl font-bold block uppercase tracking-wide text-blueGray-600">Skills</span><span class="text-sm text-blueGray-400">{{$user->skills}}</span>
@@ -73,10 +69,11 @@
                             <div class="flex flex-wrap justify-center">
                                 <div class="w-full lg:w-9/12 px-4">
                                     <p class="mb-4 text-lg leading-relaxed text-blueGray-700">
-                                        skills
+                                        {{$user->skills}}
                                     </p>
                                     <a href="#pablo" class="font-normal text-pink-500">Show more</a>
                                 </div>
+                                <livewire:employer :user="$user"> </livewire:employer>
                             </div>
                         </div>
                     </div>

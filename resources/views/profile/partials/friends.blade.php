@@ -47,6 +47,7 @@
                     <div class="flex flex-col items-center pb-10">
                         <img src="" class="w-24 h-24 mb-3 rounded-full shadow-lg"  alt="Bonnie image"/>
                         <a href="{{route('user_profile.index',$friend->nickname)}}">
+
                             <h5 class="mb-1 text-xl font-medium text-gray-900">{{$friend->name}}</h5>
                         </a>
                         <span class="text-sm text-gray-500">{{$friend->job_title ?: "Open To Work!"}}</span>
@@ -126,32 +127,7 @@
         @endforeach
     </main>
 
-    <header class="bg-white shadow">
-        <div class="mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8">
-            <h1 class="text-3xl font-bold tracking-tight text-gray-900">Pending</h1>
-        </div>
-    </header>
 
-    <main>
-        @foreach($friends as $friend)
-
-            @if(auth()->user()->hasFriendRequestPending( $friend ))
-                <p> {{$friend}} is in pending  </p>
-            @elseif(auth()->user()->hasFriendRequestReceived( $friend))
-                <a href="#" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
-                    Accept
-                </a>
-            @elseif(auth()->user()->isFriendWith( $friend ))
-                <p>{{$friend->name }} friends</p>
-            @elseif(auth()->user()->id !== $user->id)
-                <a href="{{route('friend.add',$friend->nickname)}}" class="p-16 inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
-                    Add friend
-                </a>
-            @endif
-
-        @endforeach
-
-    </main>
 @endsection
 
 

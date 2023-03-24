@@ -15,16 +15,16 @@ class FriendsController extends Controller
     public function index($nickname): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         $user = User::where('nickname',$nickname)->first();
-
         $friends = Auth::user()->friends();
         $friendsRequests = Auth::user()->friendRequests();
 
         return view('profile.partials.friends',
             compact('friends',
-                   'friendsRequests',
-                            'user'
+                    'friendsRequests',
+                             'user'
             ));
     }
+
 
     public function addFriend($nickname): RedirectResponse
     {
@@ -40,7 +40,8 @@ class FriendsController extends Controller
         }
 
         if( Auth::user()->hasFriendRequestPending($user)
-          || $user->hasFriendRequestPending(Auth::user()) ) {
+            || $user->hasFriendRequestPending(Auth::user()) )
+        {
             return redirect()->route('user_profile.index',$user->nickname)
                 ->with('info','Send friend request');
         }

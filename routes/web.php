@@ -70,6 +70,7 @@ Route::post('post/{post_id}/reply',[PostController::class,'comment'])->name('pos
  */
 Route::middleware([
     'auth:sanctum',
+    'auth',
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {

@@ -187,10 +187,10 @@ class User extends Authenticatable
         }
     }
 
+
     /*
      * Friends Logic
      */
-
     // my friend
     public function friendsOfMine(): BelongsToMany
     {
@@ -213,13 +213,13 @@ class User extends Authenticatable
     // friend requests
     public function friendRequests(): Collection
     {
-        return $this->friendsOf()->wherePivot('accepted', false)->get();
+        return $this->friendsOfMine()->wherePivot('accepted', false)->get();
     }
 
     //request for "pending"
     public function friendRequestPending(): Collection
     {
-        return $this->friendsOf()->wherePivot('accepted', false)->get();
+        return $this->friendsOfMine()->wherePivot('accepted', false)->get();
     }
 
     public function hasFriendRequestPending(User $user): bool
@@ -256,9 +256,20 @@ class User extends Authenticatable
         return (bool)$this->friends()->where('id', $user->id)->count();
     }
 
+
     public function getAgeHuman(): int
     {
         return Carbon::parse($this->date_of_birth)->age ? : '';
     }
+
+    /**
+     * @return BelongsToMany
+     * Employer's Logic
+     */
+    public function employers(): BelongsToMany
+    {
+        return $this->belongsToMany(self::class,'employers','user_id','employer_id');
+    }
+
 
 }

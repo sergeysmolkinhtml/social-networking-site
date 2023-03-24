@@ -61,8 +61,6 @@
             });
         </script>
 
-        <script>
-            $('data-toggle-tooltip').tooltip()
-        </script>
+
     </body>
 </html>
