@@ -262,7 +262,13 @@ class User extends Authenticatable
         return Carbon::parse($this->date_of_birth)->age ? : '';
     }
 
+    public function employer()
+    {
+        $this->belongsTo(Employer::class);
+    }
 
-
-
+    public function isEmployer(User $user)
+    {
+        return (bool)$user->where('employer', 1)->count();
+    }
 }

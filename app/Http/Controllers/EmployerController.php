@@ -7,9 +7,18 @@ use Illuminate\Support\Facades\Auth;
 
 class EmployerController extends Controller
 {
-
-    public function changeToEmployer($id): RedirectResponse
+    public function changeToEmployer(): RedirectResponse
     {
-        return redirect()->back()->with('info', 'Changed to employer profile');
+        $user = Auth::user();
+
+        if ($user->isEmployer($user)){
+            return redirect()->back()->with('info','Already employer');
+        } else {
+            Auth::user()->employer = 1;
+            Auth::user()->save();
+        }
+
+       return redirect()->back()->with('info', 'Changed to employer profile');
     }
+
 }

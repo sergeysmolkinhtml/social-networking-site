@@ -20,11 +20,12 @@
         "predis/predis": "^2.1",
         "pusher/pusher-php-server": "^7.2",
         "socialiteproviders/google": "^4.1",
-        "tightenco/ziggy": "^1.0",
-      "ext-http": "*"
+        "tightenco/ziggy": "^1.0"
+
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.8",
+        "beyondcode/laravel-query-detector": "^1.7",
         "fakerphp/faker": "^1.9.1",
         "laravel/breeze": "^1.19",
         "laravel/pint": "^1.0",

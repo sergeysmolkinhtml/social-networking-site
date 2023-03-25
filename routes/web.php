@@ -4,12 +4,10 @@ use App\Http\Controllers\ChatController;
 use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\FriendsController;
 use App\Http\Controllers\ImageController;
-use App\Http\Controllers\MyPageController;
 use App\Http\Controllers\NewsPage;
 use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\PublicUserFriendsController;
 use App\Http\Controllers\SearchController;
 use App\Http\Livewire\Pages\CandidateProfile;
 use App\Http\Middleware\EnsureUserIsEmployer;
@@ -36,7 +34,7 @@ Route::get( '/alert',function (){
 /**
  * Profile
  */
-Route::get( 'user/{nickname}',    [ProfileController::class,'profile'])->name('user_profile.index');
+Route::get('user/{nickname}',   [ProfileController::class,'profile'])->name('user_profile.index');
 Route::get('{nickname}/friends', [FriendsController::class, 'index'])->name('friends.index');
 
 
