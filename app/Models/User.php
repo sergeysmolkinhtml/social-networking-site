@@ -262,14 +262,7 @@ class User extends Authenticatable
         return Carbon::parse($this->date_of_birth)->age ? : '';
     }
 
-    /**
-     * @return BelongsToMany
-     * Employer's Logic
-     */
-    public function employers(): BelongsToMany
-    {
-        return $this->belongsToMany(self::class,'employers','user_id','employer_id');
-    }
+
 
 
 }

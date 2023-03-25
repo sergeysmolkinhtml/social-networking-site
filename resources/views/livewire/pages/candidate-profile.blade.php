@@ -27,11 +27,15 @@
                                     <img alt="..." src="{{$user->profile_photo_url }}" class="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px">
                                 </div>
                             </div>
-
+                            <div class="relative">
+                                <form action="{{route('dialogues.dash',$user->id)}}" method="get">
+                                    <button class="btn btn-primary" type="submit">Chat</button>
+                                </form>
+                            </div>
                             <div class="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center">
                                 <div class="py-6 px-3 mt-32 sm:mt-0">
                                     <div class="mr-4 p-3 text-center">
-                                        <span class="text-xl font-bold block uppercase tracking-wide text-blueGray-600">{{$user->work_formats ?: '-'}}</span><span class="text-sm text-blueGray-400"></span>
+                                        <span class="text-xl font-bold block uppercase tracking-wide text-blueGray-600">{{$user->work_formats ?: 'Remote, Office'}}</span><span class="text-sm text-blueGray-400"></span>
                                     </div>
                                 </div>
                             </div>
@@ -65,6 +69,7 @@
                                 <i class="fas fa-university mr-2 text-lg text-blueGray-400"></i>{{$user->education ? : 'Self-thought'}}
                             </div>
                         </div>
+
                         <div class="mt-10 py-10 border-t border-blueGray-200 text-center">
                             <div class="flex flex-wrap justify-center">
                                 <div class="w-full lg:w-9/12 px-4">
@@ -79,6 +84,7 @@
                     </div>
                 </div>
             </div>
+
             <footer class="relative bg-blueGray-200 pt-8 pb-6 mt-8">
                 <div class="container mx-auto px-4">
                     <div class="flex flex-wrap items-center md:justify-between justify-center">

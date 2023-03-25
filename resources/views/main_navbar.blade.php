@@ -121,14 +121,21 @@
                                id="user-menu-item-0">
                                 My page
                             </a>
-                        @endauth
 
+
+                        <a href="{{route('change-to-emp',auth()->user()->id )}}"
+                           class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
+                           id="user-menu-item-0">
+                                To Employer Profile
+                        </a>
+                        @endauth
                         <a href="{{route('profile.show')}}" class="block px-4 py-2 text-sm text-gray-700"
                            role="menuitem" tabindex="-1" id="user-menu-item-1">Vacancy candidate</a>
 
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
-                            <button type="submit" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1">
+                            <button type="submit" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
+                                    tabindex="-1">
                                 Logout
                             </button>
                         </form>
