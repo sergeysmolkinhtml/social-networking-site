@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\ChangeRoles;
 use App\Http\Controllers\ChatController;
-use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\FriendsController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\NewsPage;
@@ -9,6 +9,7 @@ use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\VacancyController;
 use App\Http\Livewire\Pages\CandidateProfile;
 use App\Http\Middleware\EnsureUserIsEmployer;
 use Illuminate\Support\Facades\Route;
@@ -37,6 +38,12 @@ Route::get( '/alert',function (){
 Route::get('user/{nickname}',   [ProfileController::class,'profile'])->name('user_profile.index');
 Route::get('{nickname}/friends', [FriendsController::class, 'index'])->name('friends.index');
 
+/**
+ * Vacancies
+ */
+Route::get('vacancies/',[VacancyController::class,'index'])->name('vacancy.show');
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('friends/add/{nickname}', [FriendsController::class, 'addFriend'])->name('friend.add');
@@ -46,9 +53,10 @@ Route::middleware('auth')->group(function () {
 });
 
 /**
- * Employer
+ * ChangeRoles
  */
-Route::get('{id}/to-employer/', [EmployerController::class, 'changeToEmployer'])->name('change-to-emp');
+Route::get('{id}/change-role/', [ChangeRoles::class, 'change'])->name('change-role');
+
 
 /**
  * Candidate Profile

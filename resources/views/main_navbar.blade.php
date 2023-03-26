@@ -38,7 +38,7 @@
 
                         <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Team</a>
 
-                        <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Projects</a>
+                        <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Vacancies</a>
 
                         <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Calendar</a>
 
@@ -122,16 +122,25 @@
                                 My page
                             </a>
 
+                            <a href="{{route('change-role', auth()->user()->id  )}}"
+                               class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
+                               id="user-menu-item-0">
+                                @if($user->isEmployer($user))
+                                    Change to candidate
+                                @else
+                                    Change to employer
+                                @endif
+                            </a>
 
-                        <a href="{{route('change-to-emp',auth()->user()->id )}}"
-                           class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
-                           id="user-menu-item-0">
-                                To Employer Profile
-                        </a>
                         @endauth
-                        <a href="{{route('profile.show')}}" class="block px-4 py-2 text-sm text-gray-700"
-                           role="menuitem" tabindex="-1" id="user-menu-item-1">Vacancy candidate</a>
 
+                        @if($user->isEmployer($user))
+                            <a href="" class="block px-4 py-2 text-sm text-gray-700"
+                               role="menuitem" tabindex="-1" id="user-menu-item-1">Employer profile</a>
+                        @else
+                            <a href="{{route('profile.show')}}" class="block px-4 py-2 text-sm text-gray-700"
+                               role="menuitem" tabindex="-1" id="user-menu-item-1">Candidate profile</a>
+                        @endif
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <button type="submit" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"

@@ -1,5 +1,6 @@
-<x-app-layout>
-
+@extends('base')
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+@section('content')
     <!-- component -->
     <link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/styles/tailwind.css">
     <link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css">
@@ -28,9 +29,11 @@
                                 </div>
                             </div>
                             <div class="relative">
-                                <form action="{{route('dialogues.dash',$user->id)}}" method="get">
-                                    <button class="btn btn-primary" type="submit">Chat</button>
-                                </form>
+                                @if($user->isEmployer($user))
+                                    <form action="{{route('dialogues.dash',$user->id)}}" method="get">
+                                        <button class="btn btn-primary mt-2" type="submit">Chat</button>
+                                    </form>
+                                @endif
                             </div>
                             <div class="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center">
                                 <div class="py-6 px-3 mt-32 sm:mt-0">
@@ -99,6 +102,6 @@
         </section>
     </main>
 
-</x-app-layout>
+@endsection
 
 

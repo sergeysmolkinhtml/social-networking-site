@@ -9,7 +9,7 @@ class Employer extends Model
 {
     use HasFactory;
 
-    protected $table = 'employer';
+    protected $table = 'employers';
 
     protected $fillable = [
         'who_finding',
@@ -27,6 +27,10 @@ class Employer extends Model
         $this->hasOne(User::class);
     }
 
+    public function vacancies()
+    {
+        $this->hasMany(Vacancy::class);
+    }
 
 
 
