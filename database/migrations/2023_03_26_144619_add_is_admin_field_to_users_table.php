@@ -11,10 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('employers', function (Blueprint $table) {
-            $table->boolean('verified');
-            $table->string('country');
-
+        Schema::table('users', function (Blueprint $table) {
+           $table->boolean('is_admin')->default(false);
         });
     }
 
@@ -23,7 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('employers', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             //
         });
     }

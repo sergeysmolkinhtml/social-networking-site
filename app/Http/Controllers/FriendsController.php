@@ -26,7 +26,7 @@ class FriendsController extends Controller
     }
 
 
-    public function addFriend($nickname): RedirectResponse
+    public function add($nickname): RedirectResponse
     {
         $user = User::where('nickname', $nickname)->first();
 
@@ -57,7 +57,7 @@ class FriendsController extends Controller
             ->with('info','User got friend request');
     }
 
-    public function acceptFriend($nickname)
+    public function accept($nickname)
     {
         $user = User::where('nickname', $nickname)->first();
 
@@ -77,7 +77,7 @@ class FriendsController extends Controller
 
     }
 
-    public function deleteFriend($nickname)
+    public function delete($nickname)
     {
         $user = User::where('nickname', $nickname)->first();
 

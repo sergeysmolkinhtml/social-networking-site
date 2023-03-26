@@ -1,22 +1,22 @@
 <?php
 
-use App\Http\Controllers\ChangeRoles;
-use App\Http\Controllers\ChatController;
-use App\Http\Controllers\FriendsController;
-use App\Http\Controllers\ImageController;
-use App\Http\Controllers\NewsPage;
-use App\Http\Controllers\NotificationsController;
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\SearchController;
-use App\Http\Controllers\VacancyController;
+use App\Http\Controllers\{ChangeRoles,
+    ChatController,
+    FriendsController,
+    ImageController,
+    NewsPage,
+    NotificationsController,
+    PostController,
+    ProfileController,
+    SearchController,
+    VacancyController,
+};
 use App\Http\Livewire\Pages\CandidateProfile;
 use App\Http\Middleware\EnsureUserIsEmployer;
 use Illuminate\Support\Facades\Route;
 
 // 161 185
 
-require 'social.php';
 
 
 Route::get('/',function (){
@@ -35,22 +35,22 @@ Route::get( '/alert',function (){
 /**
  * Profile
  */
-Route::get('user/{nickname}',   [ProfileController::class,'profile'])->name('user_profile.index');
-Route::get('{nickname}/friends', [FriendsController::class, 'index'])->name('friends.index');
+Route::middleware('auth')->group(function (){
+
+    Route::get('user/{nickname}',    [ProfileController::class,'profile'])->name('user_profile.index');
+    Route::get('{nickname}/friends',[FriendsController::class, 'index'])->name('friends.index');
+});
+
+require __DIR__ . '/friends.php';
+require __DIR__ . '/posts.php';
 
 /**
  * Vacancies
  */
-Route::get('vacancies/',[VacancyController::class,'index'])->name('vacancy.show');
+Route::get('vacancies/', [VacancyController::class, 'index'])->name('vacancy.show');
 
 
-
-Route::middleware('auth')->group(function () {
-    Route::get('friends/add/{nickname}', [FriendsController::class, 'addFriend'])->name('friend.add');
-    Route::get('friends/accept/{nickname}', [FriendsController::class, 'acceptFriend'])->name('friend.accept');
-    Route::post('friends/delete/{nickname}', [FriendsController::class, 'deleteFriend'])->name('friend.delete');
-    Route::post('{nickname}/pfp/upload', [ImageController::class, 'uploadPfp'])->name('pfp.upload');
-});
+Route::post('{nickname}/pfp/upload', [ImageController::class, 'uploadPfp'])->name('pfp.upload');
 
 /**
  * ChangeRoles
@@ -65,23 +65,11 @@ Route::get('candidate/id/{user}', [CandidateProfile::class, 'render'])->name('us
 
 
 /**
- * Blog Posts
- */
-Route::middleware('auth')->group(function () {
-    Route::post('post', [PostController::class, 'store'])->name('blog.post');
-    Route::get('post/detail', [PostController::class, 'create'])->name('post.detail');
-    Route::get('post/{post_id}/like', [PostController::class, 'like'])->name('post.like');
-});
-
-Route::post('post/{post_id}/reply', [PostController::class, 'comment'])->name('post.comment');
-
-
-/**
  * Chat with candidate
  */
 Route::controller(ChatController::class)
-    ->middleware(EnsureUserIsEmployer::class)->group(function ()
-    {
+    ->middleware(EnsureUserIsEmployer::class)
+    ->group(function () {
         Route::get('/dialogues/{nickname}/', 'index')->name('dialogues.dash');
         Route::get('/messages', 'messages');
         Route::post('/send', 'send');

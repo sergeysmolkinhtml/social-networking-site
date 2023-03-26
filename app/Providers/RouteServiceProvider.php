@@ -25,7 +25,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // if user's in DB or 404
+        // if user's in DB then 404
         Route::bind('user',function ($value){
             return User::findOrFail($value);
         });
@@ -40,6 +40,19 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
         });
+
+        Route::middleware(['web','auth'])
+            ->as('friends.')
+            ->prefix('user')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/friends.php'));
+
+
+        Route::middleware('web')
+            ->as('posts.')
+            ->prefix('user')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/posts.php'));
     }
 
     /**

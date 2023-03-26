@@ -1,0 +1,4 @@
+
+    Vacancies Section
+{{$vacancies}}
+

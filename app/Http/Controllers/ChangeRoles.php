@@ -15,7 +15,6 @@ class ChangeRoles extends Controller
 
             Auth::user()->employer = 0;
             Auth::user()->save();
-
             return redirect()->back()->with('info', 'Changed to candidate profile');
 
         } else {
