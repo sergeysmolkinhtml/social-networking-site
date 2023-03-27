@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Route;
 
 // 161 185
 
+Route::permanentRedirect('/','login');
+
 Route::get('/',function (){
     return 'Sign In / Sign Up page';
 });
