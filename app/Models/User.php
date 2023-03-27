@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Scopes\userNickname;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -163,6 +164,13 @@ class User extends Authenticatable
     public function setLastNameAttribute($value): void
     {
         $this->attributes['last_name'] = Str::ucfirst($value);
+    }
+
+    protected function email(): Attribute
+    {
+        return Attribute::make(
+            get: fn (string $value) => ($value),
+        );
     }
 
     // Gravatar
