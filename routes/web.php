@@ -57,7 +57,6 @@ Route::post('{nickname}/pfp/upload', [ImageController::class, 'uploadPfp'])->nam
  */
 Route::get('{id}/change-role/', [ChangeRoles::class, 'change'])->name('change-role');
 
-
 /**
  * Candidate Profile
  */

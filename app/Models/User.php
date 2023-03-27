@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\userNickname;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -85,6 +86,11 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function scopeUserNicknameMatches($query,$nickname)
+    {
+        return $query->where('nickname',$nickname)->first();
+    }
 
     public function posts(): HasMany
     {
