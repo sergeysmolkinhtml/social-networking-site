@@ -18,7 +18,7 @@
 
         <!-- component -->
         <div class="heading text-center font-bold text-2xl m-5 text-gray-800">
-            <a href="{{route('post.detail')}}">Detail New Post </a>
+            <a href="{{route('post.create')}}">Detail New Post </a>
         </div>
         <style>
             body {
@@ -26,7 +26,7 @@
             }
         </style>
 
-        <form method="post" action="{{route('blog.post')}}">
+        <form method="post" action="{{route('post.store')}}">
             <div class="editor mx-auto w-10/12 flex flex-col text-gray-800 border border-gray-300 p-4 shadow-lg max-w-2xl">
                 <label for="title">{{__('Title')}}</label>
                 <input name="title"
@@ -70,7 +70,7 @@
                 <!-- buttons -->
                 <div class="buttons flex">
                     <div class="btn border border-gray-300 p-1 px-4 font-semibold cursor-pointer text-gray-500 ml-auto">Cancel</div>
-                    <form action="{{route('blog.post')}}" method="post">
+                    <form action="{{route('post.store')}}" method="post">
                         @csrf
                         <button type="submit" class="btn border border-indigo-500 p-1 px-4 font-semibold cursor-pointer text-gray-200 ml-2 bg-indigo-500">
                             Post
@@ -90,7 +90,7 @@
 
     <main>
     @if(!$posts->count())
-            <form action="{{route('blog.post')}}" method="post">
+            <form action="{{route('post.store')}}" method="post">
                 @csrf
                 <button type="submit" class="btn border border-indigo-500 p-1 px-4 font-semibold cursor-pointer text-gray-200 ml-2 bg-indigo-500">
                     Talk something

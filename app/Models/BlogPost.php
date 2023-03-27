@@ -21,7 +21,6 @@ class BlogPost extends Model
     protected $table = 'blog_posts';
 
 
-
     protected $fillable =
         [
             'title',
@@ -52,7 +51,7 @@ class BlogPost extends Model
 
     public function comments(): HasMany
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Reply::class);
     }
 
     public function likes(): MorphMany

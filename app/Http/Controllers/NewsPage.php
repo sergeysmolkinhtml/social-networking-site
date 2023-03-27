@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BlogPost;
-use App\Models\Comment;
+use App\Models\Reply;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;

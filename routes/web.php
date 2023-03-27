@@ -1,23 +1,23 @@
 <?php
 
-use App\Http\Controllers\{ChangeRoles,
+use App\Http\Controllers\{
+    ChangeRoles,
     ChatController,
     FriendsController,
+    GroupsController,
     ImageController,
     NewsPage,
     NotificationsController,
-    PostController,
     ProfileController,
     SearchController,
-    VacancyController,
+    VacancyController
 };
+
 use App\Http\Livewire\Pages\CandidateProfile;
 use App\Http\Middleware\EnsureUserIsEmployer;
 use Illuminate\Support\Facades\Route;
 
 // 161 185
-
-
 
 Route::get('/',function (){
     return 'Sign In / Sign Up page';
@@ -32,40 +32,23 @@ Route::get( '/alert',function (){
         ->with('info','alert');
 });
 
-/**
- * Profile
- */
 Route::middleware('auth')->group(function (){
+    Route::resource('groups', GroupsController::class);
+    Route::get('vacancies/',            [VacancyController::class, 'index'])->name('vacancy.show');
+    Route::get('user/{nickname}',       [ProfileController::class,'profile'])->name('user_profile.index');
+    Route::post('{nickname}/pfp/upload',[ImageController::class, 'uploadPfp'])->name('pfp.upload');
+    Route::get('{nickname}/friends',    [FriendsController::class, 'index'])->name('friends.index');
 
-    Route::get('user/{nickname}',    [ProfileController::class,'profile'])->name('user_profile.index');
-    Route::get('{nickname}/friends',[FriendsController::class, 'index'])->name('friends.index');
+    Route::group(['prefix' => 'roles','as' => 'roles.'], function (){
+        Route::get('{id}/change-role/',   [ChangeRoles::class, 'change'])     ->name('change-role');
+        Route::get('candidate/id/{user}', [CandidateProfile::class, 'render'])->name('user_candidate.index');
+    });
+
 });
 
 require __DIR__ . '/friends.php';
 require __DIR__ . '/posts.php';
 
-/**
- * Vacancies
- */
-Route::get('vacancies/', [VacancyController::class, 'index'])->name('vacancy.show');
-
-
-Route::post('{nickname}/pfp/upload', [ImageController::class, 'uploadPfp'])->name('pfp.upload');
-
-/**
- * ChangeRoles
- */
-Route::get('{id}/change-role/', [ChangeRoles::class, 'change'])->name('change-role');
-
-/**
- * Candidate Profile
- */
-Route::get('candidate/id/{user}', [CandidateProfile::class, 'render'])->name('user_candidate.index');
-
-
-/**
- * Chat with candidate
- */
 Route::controller(ChatController::class)
     ->middleware(EnsureUserIsEmployer::class)
     ->group(function () {
@@ -74,10 +57,6 @@ Route::controller(ChatController::class)
         Route::post('/send', 'send');
     });
 
-
-/**
- * Profile Settings
- */
 Route::middleware([
     'auth:sanctum',
     'auth',

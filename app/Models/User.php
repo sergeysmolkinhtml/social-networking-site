@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Scopes\userNickname;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
@@ -88,9 +87,9 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    public function scopeUserNicknameMatches($query,$nickname)
+    public function scopeUserFindBy($query, $nickname)
     {
-        return $query->where('nickname',$nickname)->first();
+        return $query->where('nickname', $nickname)->first();
     }
 
     public function posts(): HasMany
@@ -150,11 +149,13 @@ class User extends Authenticatable
 
     /**
      * @param $value
-     * @return void
+     * @return Attribute
      */
-    public function setNameAttribute($value): void
+    protected function name($value): Attribute
     {
-        $this->attributes['name'] = Str::ucfirst($value);
+        return new Attribute(
+            get: fn($value) => ucfirst($value),
+        );
     }
 
     /**

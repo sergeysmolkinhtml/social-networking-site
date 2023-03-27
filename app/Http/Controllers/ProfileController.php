@@ -20,7 +20,7 @@ class ProfileController extends Controller
 {
     public function profile($nickname): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $user = User::UserNicknameMatches();
+        $user = User::UserFindBy($nickname);
 
         if (!$user){
             abort(404);

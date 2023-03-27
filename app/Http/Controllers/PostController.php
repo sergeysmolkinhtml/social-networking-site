@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\BlogPostCreateRequest;
 use App\Http\Requests\CommentCreateRequest;
 use App\Models\BlogPost;
-use App\Models\Comment;
+use App\Models\Reply;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -46,7 +46,7 @@ class PostController extends Controller
             "comment-$post_id"=>'required|string|max:255',
         ]);
 
-        $comment = new Comment();
+        $comment = new Reply();
         $comment->body = $data["comment-$post_id"];;
         $comment->post_id = $post_id;
         $comment->user_id = auth()->id();
