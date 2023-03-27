@@ -1,7 +1,6 @@
 <?php
 
-use App\Http\Controllers\{
-    ChangeRoles,
+use App\Http\Controllers\{ChangeRoles,
     ChatController,
     FriendsController,
     GroupsController,
@@ -10,8 +9,8 @@ use App\Http\Controllers\{
     NotificationsController,
     ProfileController,
     SearchController,
-    VacancyController
-};
+    TermsController,
+    VacancyController};
 
 use App\Http\Livewire\Pages\CandidateProfile;
 use App\Http\Middleware\EnsureUserIsEmployer;
@@ -58,6 +57,9 @@ Route::controller(ChatController::class)
         Route::get('/messages', 'messages');
         Route::post('/send', 'send');
     });
+
+Route::get('terms', [TermsController::class, 'index'])->middleware('auth')->name('terms.index');
+Route::post('terms/stores', [TermsController::class, 'store'])->middleware('auth')->name('terms.store');
 
 Route::middleware([
     'auth:sanctum',

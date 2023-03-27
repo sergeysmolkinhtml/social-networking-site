@@ -47,6 +47,7 @@ class User extends Authenticatable
         'remember_token',
         'verification_token',
         'google_id',
+        'terms_accepted',
 
     ];
 
@@ -147,17 +148,11 @@ class User extends Authenticatable
         return Str::ucfirst("{$this->name} {$this->last_name}");
     }
 
-    /**
-     * @param $value
-     * @return Attribute
-     */
-    protected function name($value): Attribute
-    {
-        return new Attribute(
-            get: fn($value) => ucfirst($value),
-        );
-    }
 
+    public function setNameAttribute($value): void
+    {
+        $this->attributes['name'] = Str::ucfirst($value);
+    }
     /**
      * @param $value
      * @return void

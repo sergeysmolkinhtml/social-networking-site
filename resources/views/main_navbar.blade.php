@@ -138,7 +138,7 @@
                             <a href="" class="block px-4 py-2 text-sm text-gray-700"
                                role="menuitem" tabindex="-1" id="user-menu-item-1">Employer profile</a>
                         @else
-                            <a href="{{route('user_candidate.index', auth()->user())}}" class="block px-4 py-2 text-sm text-gray-700"
+                            <a href="{{route('roles.user_candidate.index', auth()->user())}}" class="block px-4 py-2 text-sm text-gray-700"
                                role="menuitem" tabindex="-1" id="user-menu-item-1">Candidate profile</a>
                         @endif
                         <form method="POST" action="{{ route('logout') }}">
