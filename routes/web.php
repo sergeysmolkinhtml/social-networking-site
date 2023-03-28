@@ -56,7 +56,10 @@ Route::middleware(['auth','termsAccepted'])->group(function (){
         Route::post('terms/stores', [TermsController::class, 'store'])->name('terms.store');
     });
 
+});
 
+Route::get('token', function () {
+    return auth()->user()->createToken('api')->plainTextToken;
 });
 
 require __DIR__ . '/friends.php';
