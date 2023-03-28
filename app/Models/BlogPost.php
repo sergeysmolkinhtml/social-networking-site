@@ -20,6 +20,7 @@ class BlogPost extends Model
 
     protected $table = 'blog_posts';
 
+    public const STATUS = ['open', 'in progress', 'pending', 'waiting client', 'blocked', 'closed'];
 
     protected $fillable =
         [
