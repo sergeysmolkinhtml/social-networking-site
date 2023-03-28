@@ -15,7 +15,7 @@ class UserTermsAccepted
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(! $request->user->terms_accepted){
+        if(! auth()->user()->terms_accepted){
             return redirect()->route('terms.index');
         }
 

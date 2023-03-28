@@ -3,21 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Models\Group;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\QueryException;
+use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
+use JetBrains\PhpStorm\NoReturn;
 
 class GroupsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $groups = Group::paginate(20);
-        dd(__METHOD__);
+        $groups = Group::with('user')->filterStatus(\request('status'))
+            ->paginate(20);
+
+        return view('groups.index',compact('groups'));
     }
 
     /**
@@ -47,8 +53,9 @@ class GroupsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Group $group): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+    public function edit(Group $group): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
+
         return view('groups.edit',compact('group'));
     }
 
@@ -63,8 +70,10 @@ class GroupsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+    #[NoReturn]
     public function destroy(Group $group): RedirectResponse
     {
+
         abort_if(Gate::denies('delete'),Response::HTTP_FORBIDDEN,'403 Forbidden');
 
         try {
