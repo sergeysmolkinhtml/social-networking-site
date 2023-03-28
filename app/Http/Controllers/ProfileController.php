@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
-use App\Models\BlogPost;
 use App\Models\User;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Contracts\View\Factory;
@@ -20,17 +19,28 @@ class ProfileController extends Controller
 {
     public function profile($nickname): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $user = User::UserFindBy($nickname);
+        $withDeleted = null;
 
-        if (!$user){
+        if (in_array(request('deleted'), User::FILTER) && request('deleted') === 'true') {
+            $withDeleted = true;
+        }
+
+        $user = User::userFindBy($nickname);
+
+        $deletedUsers = User::with('roles')
+            ->when($withDeleted, function ($query) {
+                $query->withTrashed();
+            })->paginate(20);
+
+        if (!$user) {
             abort(404);
         }
 
-        $posts = $user->posts()->get();
-
-        return view('profile.public-index',[
-            'user'=>$user,
-            ]);
+        return view('profile.public-index', [
+            'user' => $user,
+            'withDeleted' => $withDeleted,
+            'deletedUsers' => $deletedUsers,
+        ]);
     }
 
     /**

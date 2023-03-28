@@ -9,20 +9,24 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens;
-    use HasFactory;
-    use HasProfilePhoto;
-    use Notifiable;
-    use TwoFactorAuthenticatable;
+    use HasApiTokens,
+        HasFactory,
+        HasRoles,
+        HasProfilePhoto,
+        Notifiable,
+        TwoFactorAuthenticatable,
+        SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -83,10 +87,11 @@ class User extends Authenticatable
      */
 
 
-
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public const FILTER = ['true', 'false'];
 
     public function scopeUserFindBy($query, $nickname)
     {
@@ -148,11 +153,11 @@ class User extends Authenticatable
         return Str::ucfirst("{$this->name} {$this->last_name}");
     }
 
-
     public function setNameAttribute($value): void
     {
         $this->attributes['name'] = Str::ucfirst($value);
     }
+
     /**
      * @param $value
      * @return void

@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Group;
+use Illuminate\Database\QueryException;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Gate;
 
 class GroupsController extends Controller
 {
@@ -59,8 +63,17 @@ class GroupsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Group $group): RedirectResponse
     {
-        dd(__METHOD__);
+        abort_if(Gate::denies('delete'),Response::HTTP_FORBIDDEN,'403 Forbidden');
+
+        try {
+            $group->delete();
+        } catch (QueryException $exception){
+            if($exception->getCode() == '23000'){
+                return redirect()->back()->with('status', 'Group belongs to project.Cannot delete');
+            }
+        }
+        return redirect()->route('groups.index');
     }
 }
