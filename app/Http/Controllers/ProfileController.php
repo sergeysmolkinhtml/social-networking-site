@@ -16,11 +16,14 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
+use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
+use RuntimeException;
 
 class ProfileController extends Controller
 {
     public function profile($nickname): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
+        Bugsnag::notifyException(new RuntimeException("Test error"));
         $withDeleted = null;
 
         if (in_array(request('deleted'), User::FILTER) && request('deleted') === 'true') {
@@ -28,7 +31,7 @@ class ProfileController extends Controller
         }
         try {
             $user = User::userFindBy($nickname);
-            $user->load(['projectsss']);
+
         } catch (ModelNotFoundException $exception){
             return view('profile.errors.notfound');
         } catch (RelationNotFoundException $exception){
@@ -45,11 +48,15 @@ class ProfileController extends Controller
             abort(404);
         }
 
+
+
         return view('profile.public-index', [
             'user' => $user,
             'withDeleted' => $withDeleted,
             'deletedUsers' => $deletedUsers,
         ]);
+
+
     }
 
     /**

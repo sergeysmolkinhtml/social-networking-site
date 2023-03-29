@@ -73,4 +73,5 @@ class Kernel extends HttpKernel
         'isAdmin' => IsAdminMiddleware::class,
         'termsAccepted' => UserTermsAccepted::class,
     ];
+
 }
