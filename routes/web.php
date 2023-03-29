@@ -76,7 +76,7 @@ Route::controller(ChatController::class)
 Route::middleware([
     'auth:sanctum',
     'auth',
-    'role:admin',
+    'role:user',
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {

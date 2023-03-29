@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\v1;
 
 use App\Http\Resources\GroupResource;
 use App\Models\Group;
@@ -13,9 +13,10 @@ class GroupController
         request()->headers->set('Accept','application/json');
     }
 
+
     public function index(): AnonymousResourceCollection
     {
-        return GroupResource::collection(Group::paginate(20));
+        return GroupResource::collection(Group::all());
     }
 
 }

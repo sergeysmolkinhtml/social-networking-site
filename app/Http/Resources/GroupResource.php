@@ -7,6 +7,8 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class GroupResource extends JsonResource
 {
+
+
     /**
      * Transform the resource into an array.
      *
@@ -16,11 +18,18 @@ class GroupResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'title' => $this->title,
             'description' => $this->description,
             'status' => $this->status,
+            'price' => $this->mergeWhen($request->group,[
+                'price' => $this->price,
+            ]),
             'deleted_at' => $this->deleted_at,
             'updated_at' => $this->updated_at,
             'created_at' => $this->created_at,
         ];
     }
+
+
+
 }
