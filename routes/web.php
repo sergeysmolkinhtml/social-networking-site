@@ -52,7 +52,7 @@ Route::middleware(['auth','termsAccepted'])->group(function (){
     });
 
     Route::withoutMiddleware('termsAccepted')->group(function (){
-        Route::get( 'terms', [TermsController::class, 'index'])->name('terms.index');
+        Route::get( 'terms',        [TermsController::class, 'index'])->name('terms.index');
         Route::post('terms/stores', [TermsController::class, 'store'])->name('terms.store');
     });
 

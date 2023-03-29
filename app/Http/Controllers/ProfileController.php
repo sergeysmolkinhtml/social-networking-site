@@ -7,6 +7,8 @@ use App\Models\User;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\Eloquent\RelationNotFoundException;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -24,8 +26,15 @@ class ProfileController extends Controller
         if (in_array(request('deleted'), User::FILTER) && request('deleted') === 'true') {
             $withDeleted = true;
         }
+        try {
+            $user = User::userFindBy($nickname);
+            $user->load(['projectsss']);
+        } catch (ModelNotFoundException $exception){
+            return view('profile.errors.notfound');
+        } catch (RelationNotFoundException $exception){
+            return view('profile.errors.relationsNotFound');
+        }
 
-        $user = User::userFindBy($nickname);
 
         $deletedUsers = User::with('roles')
             ->when($withDeleted, function ($query) {

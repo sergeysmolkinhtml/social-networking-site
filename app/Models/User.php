@@ -96,7 +96,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function scopeUserFindBy($query, $nickname)
     {
-        return $query->where('nickname', $nickname)->first();
+        return $query->where('nickname', $nickname)->firstOrFail();
     }
 
     public function posts(): HasMany
