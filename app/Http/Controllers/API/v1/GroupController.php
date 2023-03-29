@@ -16,7 +16,17 @@ class GroupController
 
     public function index(): AnonymousResourceCollection
     {
+        if(! auth()->user()->tokenCan('title-list')){
+            abort(403,'unauthorized');
+        }
         return GroupResource::collection(Group::all());
     }
 
+    public function show($id)
+    {
+        if(! auth()->user()->tokenCan('title-show')){
+            abort(403,'unauthorized');
+        }
+        return GroupResource::collection(Group::all()->where('id',$id))->first();
+    }
 }
