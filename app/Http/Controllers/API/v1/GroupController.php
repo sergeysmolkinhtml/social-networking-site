@@ -24,9 +24,10 @@ class GroupController
 
     public function show($id)
     {
-        if(! auth()->user()->tokenCan('title-show')){
+        if(! auth()->user()->tokenCan('title-list')){
             abort(403,'unauthorized');
         }
+
         return GroupResource::collection(Group::all()->where('id',$id))->first();
     }
 }

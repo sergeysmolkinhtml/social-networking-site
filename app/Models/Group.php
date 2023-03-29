@@ -48,10 +48,4 @@ class Group extends Model implements HasMedia
         $this->attributes['title'] = ucfirst($value);
     }
 
-    /*protected function createdAt(): Attribute
-    {
-        return Attribute::make(
-            get: fn($value) => $value->diffForHumans(),
-        );
-    }*/
 }
