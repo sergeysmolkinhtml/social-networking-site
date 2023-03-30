@@ -28,6 +28,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         GroupResource::withoutWrapping();
-        User::observe(UserObserver::class);
+        /*User::observe(UserObserver::class);*/
     }
 }
