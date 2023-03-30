@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\{ChangeRoles,
+use App\Http\Controllers\{Auth\VerificationController,
+    ChangeRoles,
     ChatController,
     FriendsController,
     GroupsController,
@@ -15,6 +16,7 @@ use App\Http\Controllers\{ChangeRoles,
 
 use App\Http\Livewire\Pages\CandidateProfile;
 use App\Http\Middleware\EnsureUserIsEmployer;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 // 161 185
@@ -62,7 +64,6 @@ Route::middleware(['auth','termsAccepted'])->group(function (){
 });
 
 
-
 require __DIR__ . '/friends.php';
 require __DIR__ . '/posts.php';
 
@@ -77,7 +78,6 @@ Route::controller(ChatController::class)
 Route::middleware([
     'auth:sanctum',
     'auth',
-    'role:user',
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Notifications\WelcomeRegisterNotification;
 use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -93,6 +94,11 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     public const FILTER = ['true', 'false'];
+
+    public function sendWelcomeNotification()
+    {
+        $this->notify(new WelcomeRegisterNotification());
+    }
 
     public function scopeUserFindBy($query, $nickname)
     {
