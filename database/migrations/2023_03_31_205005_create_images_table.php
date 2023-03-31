@@ -13,17 +13,18 @@ return new class extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->id();
-            $table->string('path');
-            $table->string('url');
             $table->unsignedBigInteger('post_id');
+            $table->string('original_filename');
+            $table->string('new_filename');
+            $table->integer('filesize')->nullable();
+            $table->string('mime_type')->nullable();
+
+            $table->foreignId('blog_id')
+                ->references('id')
+                ->on('blog_posts')
+                ->onDelete('cascade');
 
             $table->timestamps();
-
-            $table->index('post_id','image_post_idx');
-
-            $table->foreign('post_id','image_post_fk')
-                ->on('blog_posts')
-                ->references('id');
         });
     }
 

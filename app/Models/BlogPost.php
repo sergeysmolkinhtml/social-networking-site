@@ -47,7 +47,7 @@ class BlogPost extends Model
 
     public function photos()
     {
-        $this->hasMany(Image::class);
+        $this->hasMany(Photo::class);
     }
 
     public function comments(): HasMany
