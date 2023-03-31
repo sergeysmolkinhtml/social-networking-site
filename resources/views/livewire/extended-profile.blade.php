@@ -14,17 +14,21 @@
             @include('livewire.partials.birthday')
         </div>
 
-        {{-- Career --}}
+        {{-- Job title --}}
         <div class="col-span-6 sm:col-span-4">
             <x-label for="job_title" value="Job title"/>
-            <x-input id="job_title" class="block mt-1 w-full" type="text" wire:model.defer="state.job_title" />
+            <x-input id="job_title" class="block mt-1 w-full" type="text"
+                     wire:model.defer="state.job_title"
+                     autocomplete="job_title"/>
             <x-input-error for="job_title" class="mt-2"/>
         </div>
 
         {{-- City --}}
         <div class="col-span-6 sm:col-span-4">
             <x-label for="city" value="City"/>
-            <x-input id="city" class="block mt-1 w-full" type="text" wire:model.defer="state.city" />
+            <x-input id="city" class="block mt-1 w-full" type="text"
+                     wire:model.defer="state.city"
+                     autocomplete="city"/>
             <x-input-error for="city" class="mt-2"/>
         </div>
 

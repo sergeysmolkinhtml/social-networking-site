@@ -16,18 +16,20 @@
 
     <main>
 
-        <!-- component -->
+        @include('news.includes.story')
+
+
+
+        @include('news.includes.sidebar')
+
+
         <div class="heading text-center font-bold text-2xl m-5 text-gray-800">
             <a href="{{route('post.create')}}">Detail New Post </a>
         </div>
-        <style>
-            body {
-                background: #ffffff !important;
-            }
-        </style>
 
         <form method="post" action="{{route('post.store')}}">
-            <div class="editor mx-auto w-10/12 flex flex-col text-gray-800 border border-gray-300 p-4 shadow-lg max-w-2xl">
+            <div
+                class="editor mx-auto w-10/12 flex flex-col text-gray-800 border border-gray-300 p-4 shadow-lg max-w-2xl">
                 <label for="title">{{__('Title')}}</label>
                 <input name="title"
                        id="title"
@@ -40,12 +42,15 @@
 
                 <label for="content_raw">{{__('Content')}}</label>
                 <textarea name="content_raw"
-                          class="description bg-gray-100 sec p-3 h-60 border border-gray-300 outline-none {{$errors->has('content_raw') ? 'is-invalid': ''}}"
-                          spellcheck="false" placeholder="Describe everything about this post here">
+                          class="description bg-gray-100 sec p-3 h-30 border border-gray-300 outline-none {{$errors->has('content_raw') ? 'is-invalid': ''}}"
+                          spellcheck="false"
+                          placeholder="Describe everything about this post here"
+                          rows="10" cols="10"
+                >
                 </textarea>
-            @if($errors->has('content_raw'))
-                {{$errors->first('content_raw')}}
-            @endif
+                @if($errors->has('content_raw'))
+                    {{$errors->first('content_raw')}}
+                @endif
 
                 <div class="icons flex text-gray-500 m-2">
                     <svg class="mr-2 cursor-pointer hover:text-gray-700 border rounded-full p-1 h-7"
@@ -126,36 +131,41 @@
                         <li class="list-inline-item">{{$post->likes->count()}} {{Str::plural('like', $post->likes->count())}}</li>
                     </div>
                 </section>
-            <!-- Comment Section -->
+
+                <!-- Comment Section -->
+                <div class="my-2.5">
+                    <h2 class="text-2xl font-bold mb-2">Comments</h2>
+
+                    <div class="bg-white rounded-lg overflow-hidden shadow-lg divide-y divide-gray-200">
 
                         <div class="p-4">
-                            <h2 class="text-2xl font-bold mb-2">Comments</h2>
-
-                            <div class="bg-white rounded-lg overflow-hidden shadow-lg divide-y divide-gray-200">
-
-                                <div class="p-4">
-                                    <div class="flex items-center mb-2">
-                                        <div class="w-10 h-10 rounded-full mr-4 bg-gray-400"></div>
-                                        <div>
-                                            <p class="font-bold"></p>
-                                            <p class="text-sm text-gray-600">Posted on March 17, 2023</p>
-                                        </div>
-                                    </div>
-                                    <p class="text-gray-800">Nulla faucibus lectus quis malesuada luctus. Pellentesque commodo id leo sed malesuada. Vestibulum sagittis, lorem non cursus lacinia, mauris mauris vulputate tellus, nec pellentesque velit est vel nisi.</p>
+                            <div class="flex items-center mb-2">
+                                <div class="w-10 h-10 rounded-full mr-4 bg-gray-400"></div>
+                                <div>
+                                    <p class="font-bold"></p>
+                                    <p class="text-sm text-gray-600">Posted on March 17, 2023</p>
                                 </div>
+                            </div>
+                            <p class="text-gray-800">Nulla faucibus lectus quis malesuada luctus. Pellentesque commodo
+                                id leo sed malesuada. Vestibulum sagittis, lorem non cursus lacinia, mauris mauris
+                                vulputate tellus, nec pellentesque velit est vel nisi.</p>
+                        </div>
 
-                                <!-- Comment Form -->
-                                <form class="p-4" action="{{route('post.comment',$post->id)}}" method="POST">
-                                    @csrf
-                                    <div class="flex flex-col mb-4">
-                                        <label class="mb-2 font-bold text-gray-800" for="name">Name</label>
-                                        <input class="bg-gray-100 border-2 border-gray-200 p-2 rounded-lg focus:outline-none focus:bg-white" type="text" name="name" id="name">
-                                    </div>
-                                    <div class="flex flex-col mb-4">
-                                        <label class="mb-2 font-bold text-gray-800" for="comment">Comment</label>
-                                        <textarea name="comment-{{$post->id}}" class="bg-gray-100 border-2 border-gray-200 p-2 rounded-lg focus:outline-none focus:bg-white{{$errors->has("comment-{$post->id}") ? 'is-invalid': ''}} "
-                                                  id="comment"
-                                                  cols="10"
+                        <!-- Comment Form -->
+                        <form class="ml-10" action="{{route('post.comment',$post->id)}}" method="POST">
+                            @csrf
+                            <div class="flex flex-col mb-4">
+                                <label class="mb-2 font-bold text-gray-800" for="name">Name</label>
+                                <input
+                                    class="bg-gray-100 border-2 border-gray-200 p-2 rounded-lg focus:outline-none focus:bg-white"
+                                    type="text" name="name" id="name">
+                            </div>
+                            <div class="flex flex-col mb-4">
+                                <label class="mb-2 font-bold text-gray-800" for="comment">Comment</label>
+                                <textarea name="comment-{{$post->id}}"
+                                          class="bg-gray-100 border-2 border-gray-200 p-2 rounded-lg focus:outline-none focus:bg-white{{$errors->has("comment-{$post->id}") ? 'is-invalid': ''}} "
+                                          id="comment"
+                                          cols="10"
                                                   rows="2"></textarea>
                                         @if($errors->has("comment-{$post->id}"))
                                             <div class="invalid-feedback">
@@ -175,3 +185,8 @@
     @endforeach
     @endif
 @endsection
+<style>
+    body {
+        background: #759cd7;
+    }
+</style>

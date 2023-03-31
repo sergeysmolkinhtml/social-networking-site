@@ -27,7 +27,7 @@ Route::get('/',function (){
     return 'Sign In / Sign Up page';
 });
 
-Route::get( 'news',          [NewsPage::class, 'index'])->name('news.index');
+
 Route::get( 'search',        [SearchController::class,'results'])->name('search.results');
 Route::post('notifications', [NotificationsController::class,'get']);
 
@@ -37,6 +37,7 @@ Route::get( '/alert',function (){
 
 Route::middleware(['auth','termsAccepted'])->group(function (){
     Route::resource('groups', GroupsController::class);
+    Route::resource('news',   NewsPage::class);
     Route::get('vacancies/',            [VacancyController::class, 'index'])->name('vacancy.show');
     Route::get('user/{nickname}',       [ProfileController::class,'profile'])->name('user_profile.index');
     Route::post('{nickname}/pfp/upload',[ImageController::class, 'uploadPfp'])->name('pfp.upload');

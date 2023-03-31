@@ -6,6 +6,8 @@ namespace Database\Seeders;
 use App\Models\BlogPost;
 use App\Models\Group;
 use App\Models\User;
+use Database\Factories\BlogPostFactory;
+use Database\Factories\UserFactory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,11 +17,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        /*User::factory(20)->create();
-        BlogPost::factory(20)->create();*/
+        User::factory(20)->create();
+        BlogPost::factory(20)->create();
         $this->call([
-           /* BlogCategoriesSeeder::class,*/
-            GroupSeeder::class,
+           BlogCategoriesSeeder::class,
+           GroupSeeder::class,
         ]);
 
     }

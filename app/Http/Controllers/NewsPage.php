@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Auth;
 
 class NewsPage extends Controller
 {
+
+
     public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         if (Auth::check()) {
@@ -19,14 +21,19 @@ class NewsPage extends Controller
                 return $query->where('user_id', Auth::user()->id)
                        ->orWhereIn('user_id', Auth::user()->friends()->pluck('id'));
                     })->orderBy('created_at', 'asc')
-                      ->paginate(5);
+                      ->paginate(1);
 
+            $firstPost = $posts->first();
 
-            return view('news.news',compact('posts'));
+            return view('news.news', compact(
+                'posts',
+                'firstPost'));
         }
 
         return view('auth.login');
     }
+
+
 
 
 

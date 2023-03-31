@@ -18,11 +18,12 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
     public function update(User $user, array $input): void
     {
         Validator::make($input, [
-            'name'      => ['required', 'string','alpha','min:4','max:50'],
-            'last_name' => ['required', 'string','alpha','min:4','max:50'],
-            'gender'    => ['required', 'string', 'regex:/^[mf]$/'],
-            'email'     => ['required', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
-            'photo'     => ['nullable', 'mimes:jpg,jpeg,png', 'max:1024'],
+            'name'          => ['required', 'string','alpha','min:4','max:50'],
+            'last_name'     => ['required', 'string','alpha','min:4','max:50'],
+            'gender'        => ['required', 'string', 'regex:/^[mf]$/'],
+            'email'         => ['required', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
+            'photo'         => ['nullable', 'mimes:jpg,jpeg,png', 'max:1024'],
+            'city'          => ['nullable',]
         ])->validateWithBag('updateProfileInformation');
 
         if (isset($input['photo'])) {
@@ -38,6 +39,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
                 'last_name' => $input['last_name'],
                 'gender'    => $input['gender'],
                 'email'     => $input['email'],
+                'city'      => $input['city'],
             ])->save();
         }
     }

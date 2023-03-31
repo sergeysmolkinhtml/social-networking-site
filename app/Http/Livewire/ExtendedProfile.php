@@ -4,6 +4,8 @@ namespace App\Http\Livewire;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
+use JetBrains\PhpStorm\NoReturn;
 use Livewire\Component;
 
 class ExtendedProfile extends Component
@@ -15,6 +17,7 @@ class ExtendedProfile extends Component
      * @var array
      */
     public array $state = [];
+
     /**
      * @var string[]
      */
@@ -49,26 +52,30 @@ class ExtendedProfile extends Component
         }
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function updateExtendedProfile()
     {
-
         Validator::make($this->state,[
-            'byear'        => ['digits:4','integer'],
-            'job_title'    => ['string','max:50'],
-            'city'         => ['string','max:50'],
-            'work_formats' => ['string','max:50'],
-            'languages'    => ['string','max:200'],
-            'skills'       => ['string','max:200'],
+            'byear'        => ['nullable','digits:4','integer'],
+            'job_title'    => ['nullable','string','max:50'],
+            'city'         => ['nullable','string','max:50'],
+            'work_formats' => ['nullable','string','max:50'],
+            'languages'    => ['nullable','string','max:200'],
+            'skills'       => ['nullable','string','max:200'],
         ])->validate();
 
+        $user = Auth::user();
 
-        Auth::user()->update([
+        $user->update([
             'date_of_birth' => $this->setStrBirthday(),
             'job_title' => $this->state['job_title'],
             'city'      => $this->state['city'],
             'work_formats'=> $this->state['work_formats'],
             'languages'  => $this->state['languages'],
             'skills'    => $this->state['skills'],
+            'achievements' => $this->state['achievements'],
         ]);
 
 
@@ -76,7 +83,7 @@ class ExtendedProfile extends Component
     }
 
 
-    public function render()
+    public function render(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.extended-profile');
     }
