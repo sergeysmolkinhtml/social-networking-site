@@ -24,10 +24,17 @@ class VoucherResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('code'),
-                Forms\Components\TextInput::make('discount_percent'),
+                Forms\Components\TextInput::make('code')
+                    ->required()
+                    ->unique(),
+                Forms\Components\TextInput::make('discount_percent')
+                    ->label('Discount (%)')
+                    ->numeric()
+                    ->default(10)
+                    ->extraInputAttributes(['min' => 1, 'max' => 100 ,'step' => 1]),
                 Select::make('product_id')
                     ->relationship('product','name')
+                    ->label('Product name')
 
 
             ]);
@@ -38,8 +45,11 @@ class VoucherResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('code'),
-                Tables\Columns\TextColumn::make('discount_percent'),
-                Tables\Columns\TextColumn::make('product.name'),
+                Tables\Columns\TextColumn::make('discount_percent')->label('Discount (%)'),
+                Tables\Columns\TextColumn::make('product.name')->label('Product name'),
+                Tables\Columns\TextColumn::make('payments_count')
+                    ->counts('payments')
+                    ->label('Times used'),
             ])
             ->filters([
                 //
