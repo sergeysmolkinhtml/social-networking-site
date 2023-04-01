@@ -2,26 +2,47 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Livewire\UpdateAbout;
 use App\Http\Requests\BlogPostCreateRequest;
 use App\Http\Requests\CommentCreateRequest;
+use App\Http\Requests\UpdatePostRequest;
 use App\Models\BlogPost;
 use App\Models\Reply;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
 class PostController extends Controller
 {
 
-    public function create(): string
+    public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        return view('posts.detail-post');
+        $posts = BlogPost::latest()->get();
+
+        return view('posts.index', compact('posts'));
     }
 
-    public function store(BlogPostCreateRequest $request): \Illuminate\Foundation\Application|\Illuminate\Routing\Redirector|RedirectResponse|\Illuminate\Contracts\Foundation\Application
+    public function show($id)
+    {
+
+    }
+
+    public function create(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    {
+        return view('posts.create');
+    }
+
+    public function store(BlogPostCreateRequest $request): Application|Redirector|RedirectResponse|\Illuminate\Contracts\Foundation\Application
     {
         $data = $request->input();
+        $data['slug'] = Str::slug($data['title']);
+
         $post = (new BlogPost())->create($data);
 
         if($post){
@@ -34,6 +55,14 @@ class PostController extends Controller
         }
 
     }
+
+    public function update(UpdatePostRequest $request, BlogPost $post)
+    {
+        $post->update($request->validated());
+
+        return redirect()->route('news.index');
+    }
+
 
     /**
      * @throws ValidationException
@@ -77,6 +106,29 @@ class PostController extends Controller
 
     }
 
+    public function upload(Request $request)
+    {
+        try {
+            $post = new BlogPost();
+            $post->id = 0;
+            $post->exists = true;
+            $image = $post->addMediaFromRequest('upload')->toMediaCollection('thumb');
+
+            return response()->json([
+                'uploaded' => true,
+                'url' => $image->getUrl('thumb')
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(
+                [
+                    'uploaded' => false,
+                    'error'    => [
+                        'message' => $e->getMessage()
+                    ]
+                ]
+            );
+        }
+    }
 
 
 }

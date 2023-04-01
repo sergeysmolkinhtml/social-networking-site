@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\{Auth\VerificationController,
+use App\Http\Controllers\{
     ChangeRoles,
     ChatController,
     FriendsController,
     GroupsController,
     ImageController,
+    InvoiceController,
     MediaController,
     NewsPage,
     NotificationsController,
@@ -16,7 +17,6 @@ use App\Http\Controllers\{Auth\VerificationController,
 
 use App\Http\Livewire\Pages\CandidateProfile;
 use App\Http\Middleware\EnsureUserIsEmployer;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 // 161 185
@@ -43,7 +43,6 @@ Route::middleware(['auth','termsAccepted'])->group(function (){
     Route::post('{nickname}/pfp/upload',[ImageController::class, 'uploadPfp'])->name('pfp.upload');
     Route::get('{nickname}/friends',    [FriendsController::class, 'index'])->name('friends.index');
 
-    Route::get('sb/friends', [NewsPage::class,'friendsSb'])->name('sidebar.friend');
 
     Route::group(['prefix' => 'roles','as' => 'roles.'], function (){
         Route::get('{id}/change-role/',   [ChangeRoles::class, 'change'])     ->name('change-role');
@@ -64,6 +63,15 @@ Route::middleware(['auth','termsAccepted'])->group(function (){
     Route::get('token', function () {
         return auth()->user()->createToken('api')->plainTextToken;
     });
+
+    Route::post('/invoice/{name}', [InvoiceController::class, 'store'])
+        ->name('invoice.store');
+
+    Route::get('/invoices/{name}', [InvoiceController::class, 'show'])
+        ->name('invoice.show');
+
+    Route::get('/invoice/cat/{name}', [InvoiceController::class, 'uploadCat'])
+        ->name('invoice.cat');
 });
 
 

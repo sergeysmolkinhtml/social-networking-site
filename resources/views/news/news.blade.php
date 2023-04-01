@@ -23,10 +23,10 @@
 
 
         <div class="heading text-center font-bold text-2xl m-5 text-gray-800">
-            <a href="{{route('post.create')}}">Detail New Post </a>
+            <a href="{{route('posts.create')}}">Detail New Post </a>
         </div>
 
-        <form method="post" action="{{route('post.store')}}">
+        <form method="post" action="{{route('posts.store')}}">
             <div
                 class="editor mx-auto w-10/12 flex flex-col text-gray-800 border border-gray-300 p-4 shadow-lg max-w-2xl">
                 <label for="title">{{__('Title')}}</label>
@@ -35,18 +35,33 @@
                        value="{{old('title')}}"
                        class="title bg-gray-100 border border-gray-300 p-2 mb-4 outline-none {{$errors->has('title') ? 'is-invalid': ''}}"
                        spellcheck="false" placeholder="..." type="text">
+
                 @if($errors->has('title'))
                     {{$errors->first('title')}}
                 @endif
-
-                <label for="content_raw">{{__('Content')}}</label>
-                <textarea name="content_raw"
-                          class="description bg-gray-100 sec p-3 h-30 border border-gray-300 outline-none {{$errors->has('content_raw') ? 'is-invalid': ''}}"
-                          spellcheck="false"
-                          placeholder="Describe everything about this post here"
-                          rows="10" cols="10"
-                >
+                <div id="editor">
+                    <label for="content_raw">{{__('Content')}}</label>
+                    <textarea name="content_raw"
+                              class="description bg-gray-100 sec h-8 border border-gray-300 outline-none {{$errors->has('content_raw') ? 'is-invalid': ''}}"
+                              spellcheck="false"
+                              placeholder="Describe everything about this post here"
+                    >
                 </textarea>
+                    @push('scripts')
+                        <script src="https://cdn.ckeditor.com/ckeditor5/35.1.0/classic/ckeditor.js"></script>
+                        <script>
+                            ClassicEditor
+                                .create(document.querySelector('.editor')), {
+                                ckfinder: {
+                                    uploadUrl: '{{ route('upload', ['_token' => csrf_token()]) }}'
+                                }
+                            }
+                                .catch(error => {
+                                    console.error(error);
+                                });
+                        </script>
+                    @endpush
+                </div>
                 @if($errors->has('content_raw'))
                     {{$errors->first('content_raw')}}
                 @endif
@@ -73,11 +88,14 @@
                 </div>
                 <!-- buttons -->
                 <div class="buttons flex">
-                    <div class="btn border border-gray-300 p-1 px-4 font-semibold cursor-pointer text-gray-500 ml-auto">Cancel</div>
-                    <form action="{{route('post.store')}}" method="post">
+                    <div class="btn border border-gray-300 p-1 px-4 font-semibold cursor-pointer text-gray-500 ml-auto">
+                        Cancel
+                    </div>
+                    <form action="{{route('posts.store')}}" method="post">
                         @csrf
-                        <button type="submit" class="btn border border-indigo-500 p-1 px-4 font-semibold cursor-pointer text-gray-200 ml-2 bg-indigo-500">
-                            Post
+                        <button type="submit"
+                                class="btn border border-indigo-500 p-1 px-4 font-semibold cursor-pointer text-gray-200 ml-2 bg-indigo-500">
+                            Post!
                         </button>
                     </form>
                 </div>
@@ -93,20 +111,23 @@
     </header>
 
     <main>
-    @if(!$posts->count())
-            <form action="{{route('post.store')}}" method="post">
+        @if(!$posts->count())
+            <form action="{{route('posts.store')}}" method="post">
                 @csrf
-                <button type="submit" class="btn border border-indigo-500 p-1 px-4 font-semibold cursor-pointer text-gray-200 ml-2 bg-indigo-500">
+                <button type="submit"
+                        class="btn border border-indigo-500 p-1 px-4 font-semibold cursor-pointer text-gray-200 ml-2 bg-indigo-500">
                     Talk something
                 </button>
             </form>
-    @else
-        @foreach($posts as $post)
+        @else
+            @foreach($posts as $post)
 
                 <section class="bg-white dark:bg-gray-900">
-                    <div class="gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
+                    <div
+                        class="gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
                         <div class="font-light text-gray-500 sm:text-lg dark:text-gray-400">
                             <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-teal-300">{{$post->title}}</h2>
+                            <a href="">Edit</a>
                             <p class="mb-4">
                                 {{$post->content_raw}}
                             </p>
@@ -114,18 +135,24 @@
                             <p>{{$post->created_at->diffForHumans()}}</p>
                         </div>
                         <div class="grid grid-cols-2 gap-4 mt-8">
-                            <img class="w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/office-long-2.png" alt="office content 1">
-                            <img class="mt-4 w-full lg:mt-10 rounded-lg" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/office-long-1.png" alt="office content 2">
+                            <img class="w-full rounded-lg"
+                                 src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/office-long-2.png"
+                                 alt="office content 1">
+                            <img class="mt-4 w-full lg:mt-10 rounded-lg"
+                                 src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/office-long-1.png"
+                                 alt="office content 2">
                         </div>
                         @if($post->user->id !== Auth::user()->id)
-                        <button class="flex items-center justify-center space-x-2 text-gray-700 hover:text-red-500">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4c-3.24 0-6.2 1.9-7.55 4.89-.83 1.64-1.4 3.48-1.63 5.36-.24 1.97-.13 3.95.28 5.89.07.33.12.67.17 1h18.06c.05-.33.1-.67.17-1 .41-1.94.52-3.92.28-5.89-.23-1.88-.8-3.72-1.63-5.36C18.2 5.9 15.24 4 12 4z" />
-                            </svg>
-                            <span><a href="{{route('post.like',$post->id)}}">Like</a>
+                            <button class="flex items-center justify-center space-x-2 text-gray-700 hover:text-red-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                     stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                          d="M12 4c-3.24 0-6.2 1.9-7.55 4.89-.83 1.64-1.4 3.48-1.63 5.36-.24 1.97-.13 3.95.28 5.89.07.33.12.67.17 1h18.06c.05-.33.1-.67.17-1 .41-1.94.52-3.92.28-5.89-.23-1.88-.8-3.72-1.63-5.36C18.2 5.9 15.24 4 12 4z"/>
+                                </svg>
+                                <span><a href="{{route('posts.like',$post->id)}}">Like</a>
 
                             </span>
-                        </button>
+                            </button>
                         @endif
                         <li class="list-inline-item">{{$post->likes->count()}} {{Str::plural('like', $post->likes->count())}}</li>
                     </div>
@@ -151,7 +178,7 @@
                         </div>
 
                         <!-- Comment Form -->
-                        <form class="ml-10" action="{{route('post.comment',$post->id)}}" method="POST">
+                        <form class="ml-10" action="{{route('posts.comment',$post->id)}}" method="POST">
                             @csrf
                             <div class="flex flex-col mb-4">
                                 <label class="mb-2 font-bold text-gray-800" for="name">Name</label>
@@ -172,6 +199,7 @@
                                             </div>
                                         @endif
                                     </div>
+
                                         <button type="submit" class="bg-blue-500 text-teal-300 font-bold py-2 px-4 rounded">
                                             Comment
                                         </button>
@@ -179,6 +207,7 @@
                             </div>
                         </div>
     </main>
+
 
     <span class="p-16 text-justify">{{$posts->links()}}</span>
     @endforeach
@@ -189,3 +218,6 @@
         background: #759cd7;
     }
 </style>
+
+
+

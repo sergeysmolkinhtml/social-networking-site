@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreatePostRequest;
 use App\Models\BlogPost;
 use App\Models\Reply;
 use Illuminate\Contracts\View\Factory;
@@ -31,13 +32,6 @@ class NewsPage extends Controller
 
         return view('auth.login');
     }
-
-    public function friendsSb()
-    {
-        return view('news.news');
-    }
-
-
 
 
 }
