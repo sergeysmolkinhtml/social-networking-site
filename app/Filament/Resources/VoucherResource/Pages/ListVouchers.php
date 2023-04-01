@@ -1,16 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\ProductResource\Pages;
+namespace App\Filament\Resources\VoucherResource\Pages;
 
-use App\Filament\Resources\ProductResource;
+use App\Filament\Resources\VoucherResource;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\ListRecords;
 
-class ListProducts extends ListRecords
+class ListVouchers extends ListRecords
 {
-    protected static string $resource = ProductResource::class;
-
-
+    protected static string $resource = VoucherResource::class;
 
     protected function getActions(): array
     {
