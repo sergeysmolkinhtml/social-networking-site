@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('filesize')->nullable();
             $table->string('mime_type')->nullable();
 
-            $table->foreignId('blog_id')
+            $table->foreignId('fk_post_id')
                 ->references('id')
                 ->on('blog_posts')
                 ->onDelete('cascade');

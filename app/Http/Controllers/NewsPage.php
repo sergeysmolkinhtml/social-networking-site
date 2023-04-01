@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Auth;
 class NewsPage extends Controller
 {
 
-
     public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         if (Auth::check()) {
@@ -33,6 +32,10 @@ class NewsPage extends Controller
         return view('auth.login');
     }
 
+    public function friendsSb()
+    {
+        return view('news.news');
+    }
 
 
 

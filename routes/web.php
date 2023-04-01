@@ -43,6 +43,8 @@ Route::middleware(['auth','termsAccepted'])->group(function (){
     Route::post('{nickname}/pfp/upload',[ImageController::class, 'uploadPfp'])->name('pfp.upload');
     Route::get('{nickname}/friends',    [FriendsController::class, 'index'])->name('friends.index');
 
+    Route::get('sb/friends', [NewsPage::class,'friendsSb'])->name('sidebar.friend');
+
     Route::group(['prefix' => 'roles','as' => 'roles.'], function (){
         Route::get('{id}/change-role/',   [ChangeRoles::class, 'change'])     ->name('change-role');
         Route::get('candidate/id/{user}', [CandidateProfile::class, 'render'])->name('user_candidate.index');

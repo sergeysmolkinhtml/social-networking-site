@@ -19,7 +19,6 @@
         @include('news.includes.story')
 
 
-
         @include('news.includes.sidebar')
 
 
