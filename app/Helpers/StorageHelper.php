@@ -11,12 +11,12 @@ class StorageHelper
     /**
      * Get a filesystem instance.
      *
-     * @param  string  $name
+     * @param string|null $name
      * @return FilesystemAdapter
      */
-    public static function disk($name = null): FilesystemAdapter
+    public static function disk(string $name = null): FilesystemAdapter
     {
-        /** @var FilesystemAdapter */
+        /** @var FilesystemAdapter $disk */
         $disk = Storage::disk($name);
 
         return $disk;

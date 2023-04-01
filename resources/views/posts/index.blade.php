@@ -40,7 +40,7 @@
 
                                     <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
                                         <a href="{{ route('posts.show', $post) }}" class="hover:underline">
-                                            {{ substr($post->content_raw,0,20) }}
+                                            {{ substr($post->content_raw, 0, 20) }}
                                         </a>
                                     </td>
 

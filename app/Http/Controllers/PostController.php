@@ -11,6 +11,7 @@ use App\Models\Reply;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
@@ -106,7 +107,7 @@ class PostController extends Controller
 
     }
 
-    public function upload(Request $request)
+    public function upload(Request $request): JsonResponse
     {
         try {
             $post = new BlogPost();

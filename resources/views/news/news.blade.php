@@ -17,18 +17,14 @@
     <main>
 
         @include('news.includes.story')
-
-
         @include('news.includes.sidebar')
-
 
         <div class="heading text-center font-bold text-2xl m-5 text-gray-800">
             <a href="{{route('posts.create')}}">Detail New Post </a>
         </div>
 
         <form method="post" action="{{route('posts.store')}}">
-            <div
-                class="editor mx-auto w-10/12 flex flex-col text-gray-800 border border-gray-300 p-4 shadow-lg max-w-2xl">
+            <div class="editor mx-auto w-10/12 flex flex-col text-gray-800 border border-gray-300 p-4 shadow-lg max-w-2xl">
                 <label for="title">{{__('Title')}}</label>
                 <input name="title"
                        id="title"
@@ -39,29 +35,16 @@
                 @if($errors->has('title'))
                     {{$errors->first('title')}}
                 @endif
-                <div id="editor">
-                    <label for="content_raw">{{__('Content')}}</label>
-                    <textarea name="content_raw"
-                              class="description bg-gray-100 sec h-8 border border-gray-300 outline-none {{$errors->has('content_raw') ? 'is-invalid': ''}}"
-                              spellcheck="false"
-                              placeholder="Describe everything about this post here"
-                    >
-                </textarea>
-                    @push('scripts')
-                        <script src="https://cdn.ckeditor.com/ckeditor5/35.1.0/classic/ckeditor.js"></script>
-                        <script>
-                            ClassicEditor
-                                .create(document.querySelector('.editor')), {
-                                ckfinder: {
-                                    uploadUrl: '{{ route('upload', ['_token' => csrf_token()]) }}'
-                                }
-                            }
-                                .catch(error => {
-                                    console.error(error);
-                                });
-                        </script>
-                    @endpush
-                </div>
+
+
+                <label for="content_raw">{{__('Content')}}</label>
+                <textarea id="content_raw"
+                          class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                          name="content_raw">
+                        {{ old('content_raw') }}
+                    </textarea>
+
+
                 @if($errors->has('content_raw'))
                     {{$errors->first('content_raw')}}
                 @endif
@@ -215,9 +198,21 @@
 @endsection
 <style>
     body {
-        background: #759cd7;
+        background: #ffffff;
     }
 </style>
-
+@push('scripts')
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.1.0/classic/ckeditor.js">
+        ClassicEditor
+            .create(document.querySelector('#content_raw')), {
+            ckfinder: {
+                uploadUrl: '{{ route('upload', ['_token' => csrf_token()]) }}'
+            },
+        }
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+@endpush
 
 

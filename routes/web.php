@@ -1,7 +1,6 @@
 <?php
 
-use App\Http\Controllers\{
-    ChangeRoles,
+use App\Http\Controllers\{ChangeRoles,
     ChatController,
     FriendsController,
     GroupsController,
@@ -10,6 +9,7 @@ use App\Http\Controllers\{
     MediaController,
     NewsPage,
     NotificationsController,
+    PostController,
     ProfileController,
     SearchController,
     TermsController,
@@ -26,7 +26,6 @@ Route::permanentRedirect('/','login');
 Route::get('/',function (){
     return 'Sign In / Sign Up page';
 });
-
 
 Route::get( 'search',        [SearchController::class,'results'])->name('search.results');
 Route::post('notifications', [NotificationsController::class,'get']);
@@ -74,6 +73,7 @@ Route::middleware(['auth','termsAccepted'])->group(function (){
         ->name('invoice.cat');
 });
 
+Route::post('upload', [PostController::class, 'upload'])->name('upload');
 
 require __DIR__ . '/friends.php';
 require __DIR__ . '/posts.php';
