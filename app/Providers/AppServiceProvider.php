@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Http\Resources\GroupResource;
 use App\Models\User;
 use App\Observers\UserObserver;
+use Filament\Facades\Filament;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
 
@@ -28,6 +29,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         GroupResource::withoutWrapping();
+        Filament::serving(function (){
+            Filament::registerViteTheme('resources/css/filament.css');
+        });
         /*User::observe(UserObserver::class);*/
     }
 }
