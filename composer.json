@@ -12,7 +12,7 @@
         "filament/filament": "^2.17",
         "flowframe/laravel-trend": "^0.1.5",
         "guzzlehttp/guzzle": "^7.2",
-        "inertiajs/inertia-laravel": "^0.6.8",
+        "inertiajs/inertia-laravel": "^0.6.9",
         "intervention/image": "^2.7",
         "laravel/framework": "^10.0",
         "laravel/jetstream": "^3.0",
