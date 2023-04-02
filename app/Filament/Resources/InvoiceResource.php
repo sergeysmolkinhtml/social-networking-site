@@ -119,4 +119,9 @@ class InvoiceResource extends Resource
             'create' => Pages\CreateInvoice::route('/create'),
         ];
     }
+
+    protected static function getNavigationBadge(): ?string
+    {
+        return self::getModel()::count();
+    }
 }

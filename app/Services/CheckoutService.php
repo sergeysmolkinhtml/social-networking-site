@@ -14,7 +14,7 @@ class CheckoutService
 
     public function scan(string $item): void
     {
-        $product = Product::where('profuct_code',$item)->first();
+        $product = Product::where('product_code',$item)->first();
         if($product){
             Cart:create(['product_id' => $product->id]);
             $this->total = $this->getTotal();
