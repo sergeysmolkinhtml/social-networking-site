@@ -18,10 +18,11 @@ class Product extends Model
       'price',
       'slug',
       'image',
+      'is_active',
 
     ];
 
-    public function tags(): BelongsToMany
+    public function tags(): belongsToMany
     {
         return $this->belongsToMany(Tag::class);
     }

@@ -95,6 +95,7 @@ class UserResource extends Resource
             'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
     }
+
     //permissions
     public static function canCreate(): bool
     {

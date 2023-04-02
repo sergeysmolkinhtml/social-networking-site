@@ -21,7 +21,7 @@
             <div class="clearfix">
                 <h1 class="float-left display-3 mr-4">@yield('code')</h1>
                 <h4 class="pt-3 text-muted">@yield('message')</h4>
-                <a href="{{ route('home') }}" class="btn btn-outline-info">
+                <a href="{{ route('news.index') }}" class="btn btn-outline-info">
                     <i class="fas fa-arrow-left"></i> Return to home
                 </a>
             </div>

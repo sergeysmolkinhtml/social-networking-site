@@ -94,7 +94,7 @@ class User extends Authenticatable implements MustVerifyEmail,FilamentUser
         'profile_photo_url',
     ];
 
-    public function canAccessFilament(): bool
+   public function canAccessFilament(): bool
     {
         return str_ends_with($this->email, '@admin.com') && $this->hasVerifiedEmail();
     }

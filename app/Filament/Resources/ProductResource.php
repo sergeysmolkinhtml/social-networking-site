@@ -41,6 +41,7 @@ class ProductResource extends Resource
                 Forms\Components\TextInput::make('slug')->required(),
                 Forms\Components\FileUpload::make('image'),
 
+
             ]);
     }
 
@@ -48,7 +49,7 @@ class ProductResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('image')->height('50')->width('60'),
+                Tables\Columns\ImageColumn::make('image')->height('20')->width('20'),
                 Tables\Columns\TextColumn::make('name')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('price')->sortable()->searchable()->money('usd'),
             ])
@@ -67,7 +68,7 @@ class ProductResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\TagsRelationManager::class
         ];
     }
 
