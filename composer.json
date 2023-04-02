@@ -9,6 +9,7 @@
         "arrilot/laravel-widgets": "^3.13",
         "bugsnag/bugsnag-laravel": "^2.26",
         "filament/filament": "^2.17",
+        "flowframe/laravel-trend": "^0.1.5",
         "guzzlehttp/guzzle": "^7.2",
         "inertiajs/inertia-laravel": "^0.6.8",
         "intervention/image": "^2.7",
