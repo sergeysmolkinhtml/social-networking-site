@@ -24,11 +24,11 @@ class UserResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-user';
 
-    protected static ?string $recordTitleAttribute = 'name';
+    protected static ?string $navigationGroup = 'Shop';
 
     protected static ?int $navigationSort = 1;
 
-    protected static ?string $navigationGroup = 'Shop';
+    protected static ?string $recordTitleAttribute = 'name';
 
     public static function form(Form $form): Form
     {
@@ -92,14 +92,15 @@ class UserResource extends Resource
     {
         return [
             'index' => Pages\ListUsers::route('/'),
+            'create' => Pages\CreateUser::route('/create'),
             'edit' => Pages\EditUser::route('/{record}/edit'),
+
         ];
     }
 
-    //permissions
     public static function canCreate(): bool
     {
-        return false;
+        return true;
     }
 
     public static function canDelete(Model $record): bool
@@ -107,19 +108,13 @@ class UserResource extends Resource
         return false;
     }
 
-    public static function canDeleteAny( ): bool
+    public static function canDeleteAny(): bool
     {
         return false;
     }
 
     public static function getGloballySearchableAttributes(): array
     {
-        return ['name','last_name','email'];
+        return ['name', 'email'];
     }
-
-    protected static function getNavigationBadge(): ?string
-    {
-        return self::getModel()::count();
-    }
-
 }

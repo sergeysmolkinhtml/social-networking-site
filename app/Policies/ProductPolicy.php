@@ -18,7 +18,7 @@ class ProductPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->can('view_any_product');
+        return $user->role_id == 1;
     }
 
     /**
@@ -30,7 +30,7 @@ class ProductPolicy
      */
     public function view(User $user, Product $product)
     {
-        return $user->can('view_product');
+        return $user->role_id == 1;
     }
 
     /**
@@ -41,7 +41,7 @@ class ProductPolicy
      */
     public function create(User $user)
     {
-        return $user->can('create_product');
+        return $user->role_id == 1;
     }
 
     /**
@@ -53,7 +53,7 @@ class ProductPolicy
      */
     public function update(User $user, Product $product)
     {
-        return $user->can('update_product');
+        return $user->role_id == 1;
     }
 
     /**
@@ -65,7 +65,7 @@ class ProductPolicy
      */
     public function delete(User $user, Product $product)
     {
-        return $user->can('delete_product');
+        return $user->role_id == 1;
     }
 
     /**
@@ -76,7 +76,7 @@ class ProductPolicy
      */
     public function deleteAny(User $user)
     {
-        return $user->can('delete_any_product');
+        return $user->role_id == 1;
     }
 
     /**
@@ -88,7 +88,7 @@ class ProductPolicy
      */
     public function forceDelete(User $user, Product $product)
     {
-        return $user->can('force_delete_product');
+        return $user->role_id == 1;
     }
 
     /**
@@ -99,7 +99,7 @@ class ProductPolicy
      */
     public function forceDeleteAny(User $user)
     {
-        return $user->can('force_delete_any_product');
+        return $user->role_id == 1;
     }
 
     /**
@@ -111,7 +111,7 @@ class ProductPolicy
      */
     public function restore(User $user, Product $product)
     {
-        return $user->can('restore_product');
+        return $user->role_id == 1;
     }
 
     /**
@@ -122,7 +122,7 @@ class ProductPolicy
      */
     public function restoreAny(User $user)
     {
-        return $user->can('restore_any_product');
+        return $user->role_id == 1;
     }
 
     /**
@@ -134,7 +134,7 @@ class ProductPolicy
      */
     public function replicate(User $user, Product $product)
     {
-        return $user->can('replicate_product');
+        return $user->role_id == 1;
     }
 
     /**
@@ -145,7 +145,7 @@ class ProductPolicy
      */
     public function reorder(User $user)
     {
-        return $user->can('reorder_product');
+        return $user->role_id == 1;
     }
 
 }

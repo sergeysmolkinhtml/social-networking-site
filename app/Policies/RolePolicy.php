@@ -18,7 +18,7 @@ class RolePolicy
      */
     public function viewAny(User $user)
     {
-        return $user->can('view_any_role');
+        return $user->role_id == 1;
     }
 
     /**
@@ -30,7 +30,7 @@ class RolePolicy
      */
     public function view(User $user, Role $role)
     {
-        return $user->can('view_role');
+        return $user->role_id == 1;
     }
 
     /**
@@ -41,7 +41,7 @@ class RolePolicy
      */
     public function create(User $user)
     {
-        return $user->can('create_role');
+        return $user->role_id == 1;
     }
 
     /**
@@ -53,7 +53,7 @@ class RolePolicy
      */
     public function update(User $user, Role $role)
     {
-        return $user->can('update_role');
+        return $user->role_id == 1;
     }
 
     /**
@@ -65,7 +65,7 @@ class RolePolicy
      */
     public function delete(User $user, Role $role)
     {
-        return $user->can('delete_role');
+        return $user->role_id == 1;
     }
 
     /**
@@ -76,7 +76,7 @@ class RolePolicy
      */
     public function deleteAny(User $user)
     {
-        return $user->can('delete_any_role');
+        return $user->role_id == 1;
     }
 
     /**
@@ -88,7 +88,7 @@ class RolePolicy
      */
     public function forceDelete(User $user, Role $role)
     {
-        return $user->can('{{ ForceDelete }}');
+        return $user->role_id == 1;
     }
 
     /**
@@ -99,7 +99,7 @@ class RolePolicy
      */
     public function forceDeleteAny(User $user)
     {
-        return $user->can('{{ ForceDeleteAny }}');
+        return $user->role_id == 1;
     }
 
     /**
@@ -111,7 +111,7 @@ class RolePolicy
      */
     public function restore(User $user, Role $role)
     {
-        return $user->can('{{ Restore }}');
+        return $user->role_id == 1;
     }
 
     /**
@@ -122,7 +122,7 @@ class RolePolicy
      */
     public function restoreAny(User $user)
     {
-        return $user->can('{{ RestoreAny }}');
+        return $user->role_id == 1;
     }
 
     /**
@@ -134,7 +134,7 @@ class RolePolicy
      */
     public function replicate(User $user, Role $role)
     {
-        return $user->can('{{ Replicate }}');
+        return $user->role_id == 1;
     }
 
     /**
@@ -145,7 +145,7 @@ class RolePolicy
      */
     public function reorder(User $user)
     {
-        return $user->can('{{ Reorder }}');
+        return $user->role_id == 1;
     }
 
 }

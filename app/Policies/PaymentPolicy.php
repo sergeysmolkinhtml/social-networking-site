@@ -18,7 +18,7 @@ class PaymentPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->can('view_any_payment');
+        return $user->role_id == 1;
     }
 
     /**
@@ -30,7 +30,7 @@ class PaymentPolicy
      */
     public function view(User $user, Payment $payment)
     {
-        return $user->can('view_payment');
+        return $user->role_id == 1;
     }
 
     /**
@@ -41,7 +41,7 @@ class PaymentPolicy
      */
     public function create(User $user)
     {
-        return $user->can('create_payment');
+        return $user->role_id == 1;
     }
 
     /**
@@ -53,7 +53,7 @@ class PaymentPolicy
      */
     public function update(User $user, Payment $payment)
     {
-        return $user->can('update_payment');
+        return $user->role_id == 1;
     }
 
     /**
@@ -65,7 +65,7 @@ class PaymentPolicy
      */
     public function delete(User $user, Payment $payment)
     {
-        return $user->can('delete_payment');
+        return $user->role_id == 1;
     }
 
     /**
@@ -76,7 +76,7 @@ class PaymentPolicy
      */
     public function deleteAny(User $user)
     {
-        return $user->can('delete_any_payment');
+        return $user->role_id == 1;
     }
 
     /**
@@ -88,7 +88,7 @@ class PaymentPolicy
      */
     public function forceDelete(User $user, Payment $payment)
     {
-        return $user->can('force_delete_payment');
+        return $user->role_id == 1;
     }
 
     /**
@@ -99,7 +99,7 @@ class PaymentPolicy
      */
     public function forceDeleteAny(User $user)
     {
-        return $user->can('force_delete_any_payment');
+        return $user->role_id == 1;
     }
 
     /**
@@ -111,7 +111,7 @@ class PaymentPolicy
      */
     public function restore(User $user, Payment $payment)
     {
-        return $user->can('restore_payment');
+        return $user->role_id == 1;
     }
 
     /**
@@ -122,7 +122,7 @@ class PaymentPolicy
      */
     public function restoreAny(User $user)
     {
-        return $user->can('restore_any_payment');
+        return $user->role_id == 1;
     }
 
     /**
@@ -134,7 +134,7 @@ class PaymentPolicy
      */
     public function replicate(User $user, Payment $payment)
     {
-        return $user->can('replicate_payment');
+        return $user->role_id == 1;
     }
 
     /**
@@ -145,7 +145,7 @@ class PaymentPolicy
      */
     public function reorder(User $user)
     {
-        return $user->can('reorder_payment');
+        return $user->role_id == 1;
     }
 
 }
