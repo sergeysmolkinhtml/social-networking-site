@@ -10,8 +10,6 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class PaymentResource extends Resource
 {
@@ -32,8 +30,10 @@ class PaymentResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('created_at')->label('Payment time')->sortable(),
-                Tables\Columns\TextColumn::make('product.name'),
-                Tables\Columns\TextColumn::make('user.name')->label('User name'),
+                Tables\Columns\TextColumn::make('product.name')
+                    ->url(fn (Payment $record) => ProductResource::getUrl('edit', ['record' => $record->product])),
+                Tables\Columns\TextColumn::make('user.name')->label('User name')
+                    ->url(fn (Payment $record) => UserResource::getUrl('edit', ['record' => $record->user])),
                 Tables\Columns\TextColumn::make('user.email')->label('User email'),
                 Tables\Columns\TextColumn::make('voucher.code'),
                 Tables\Columns\TextColumn::make('subtotal')->money('usd'),
