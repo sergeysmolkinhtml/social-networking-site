@@ -9,6 +9,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -55,6 +56,7 @@ class User extends Authenticatable implements MustVerifyEmail,FilamentUser
         'verification_token',
         'google_id',
         'terms_accepted',
+        'role_id',
 
     ];
 
@@ -93,6 +95,11 @@ class User extends Authenticatable implements MustVerifyEmail,FilamentUser
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function role(): BelongsTo
+    {
+        return $this->belongsTo(Role::class);
+    }
 
    public function canAccessFilament(): bool
     {
