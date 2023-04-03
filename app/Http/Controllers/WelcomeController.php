@@ -12,7 +12,7 @@ class WelcomeController extends Controller
     public function index(): Response|ResponseFactory
     {
         $data  = [];
-
+        //data comes from eloquent into the web controller and then to inertia
         return inertia('Welcome/Index',compact('data'));
     }
 

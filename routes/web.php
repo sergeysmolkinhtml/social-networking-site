@@ -24,7 +24,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::permanentRedirect('/','login');
 
-
 Route::get( 'search',        [SearchController::class,'results'])->name('search.results');
 Route::post('notifications', [NotificationsController::class,'get']);
 
@@ -83,8 +82,6 @@ Route::controller(ChatController::class)
         Route::get('/messages', 'messages');
         Route::post('/send', 'send');
     });
-
-Route::get('/',[WelcomeController::class,'index'])->name('welcome.authorize');
 
 Route::middleware([
     'auth:sanctum',

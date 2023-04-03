@@ -34,9 +34,6 @@ class Group extends Model implements HasMedia
 
     protected $table = 'group';
 
-    protected $appends = [
-        'created_at',
-    ];
 
     public function user(): BelongsTo
     {

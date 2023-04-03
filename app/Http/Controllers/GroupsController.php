@@ -11,6 +11,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
+use Inertia\ResponseFactory;
 use JetBrains\PhpStorm\NoReturn;
 
 class GroupsController extends Controller
@@ -18,12 +19,12 @@ class GroupsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    public function index(): \Inertia\Response|ResponseFactory
     {
-        $groups = Group::with('user')->filterStatus(\request('status'))
-            ->paginate(20);
+        $groups = Group::all();
 
-        return view('groups.index',compact('groups'));
+        return inertia('Groups/Index', compact('groups'));
+
     }
 
     /**
