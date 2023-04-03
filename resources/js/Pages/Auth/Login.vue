@@ -1,90 +1,154 @@
+<template>
+<div id="app">
+    <div id="login">
+        <div id="description">
+            <h1>Login</h1>
+            <p>By logging in you agree to the ridiculously long terms that you didn't bother to read.</p>
+        </div>
+        <div id="form">
+            <form @submit.prevent="doLogin">
+                <label for="email">Email</label>
+                <input type="text" id="email" v-model="email" placeholder="elon@musk.io" autocomplete="off">
+
+                <label for="password">Password</label>&nbsp;
+                <i class="fas" :class="[passwordFieldIcon]" @click="hidePassword = !hidePassword"></i>
+                <input :type="passwordFieldType" id="password" v-model="password" placeholder="**********">
+
+                <button type="submit">Log in</button>
+            </form>
+        </div>
+    </div>
+</div>
+</template>
+
 <script setup>
-import Checkbox from '@/Components/Checkbox.vue';
-import GuestLayout from '@/Pages/Layouts/GuestLayout.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
-import { Head, Link, useForm } from '@inertiajs/vue3';
+import {computed, ref} from "vue";
 
-defineProps({
-    canResetPassword: Boolean,
-    status: String,
-});
+const email = ref("");
+const hidePassword = ref(true);
+const password = ref("");
 
-const form = useForm({
-    email: '',
-    password: '',
-    remember: false,
-});
+const passwordFieldIcon = computed(() => hidePassword.value ? "fa-eye" : "fa-eye-slash");
+const passwordFieldType = computed(() => hidePassword.value ? "password" : "text");
 
-const submit = () => {
-    form.post(route('login'), {
-        onFinish: () => form.reset('password'),
-    });
-};
+const doLogin = () => alert("Not implemented yet :O");
 </script>
 
-<template>
-    <GuestLayout>
-        <Head title="Log in" />
+<style>
+* {
+    box-sizing: border-box;
+    font-family: Verdana, sans-serif;
+}
 
-        <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
-            {{ status }}
-        </div>
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
 
-        <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="email" value="Email" />
+div#app {
+    width: 100%;
+    height: 100%;
+}
 
-                <TextInput
-                    id="email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    v-model="form.email"
-                    required
-                    autofocus
-                    autocomplete="username"
-                />
+div#app div#login {
+    align-items: center;
+    background-color: #e2e2e5;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
 
-                <InputError class="mt-2" :message="form.errors.email" />
-            </div>
+div#app div#login div#description {
+    background-color: #ffffff;
+    width: 280px;
+    padding: 35px;
+}
 
-            <div class="mt-4">
-                <InputLabel for="password" value="Password" />
+div#app div#login div#description h1,
+div#app div#login div#description p {
+    margin: 0;
+}
 
-                <TextInput
-                    id="password"
-                    type="password"
-                    class="mt-1 block w-full"
-                    v-model="form.password"
-                    required
-                    autocomplete="current-password"
-                />
+div#app div#login div#description p {
+    font-size: 0.8em;
+    color: #95a5a6;
+    margin-top: 10px;
+}
 
-                <InputError class="mt-2" :message="form.errors.password" />
-            </div>
+div#app div#login div#form {
+    background-color: #34495e;
+    border-radius: 5px;
+    box-shadow: 0px 0px 30px 0px #666;
+    color: #ecf0f1;
+    width: 260px;
+    padding: 35px;
+}
 
-            <div class="block mt-4">
-                <label class="flex items-center">
-                    <Checkbox name="remember" v-model:checked="form.remember" />
-                    <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">Remember me</span>
-                </label>
-            </div>
+div#app div#login div#form label,
+div#app div#login div#form input {
+    outline: none;
+    width: 100%;
+}
 
-            <div class="flex items-center justify-end mt-4">
-                <Link
-                    v-if="canResetPassword"
-                    :href="route('password.request')"
-                    class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
-                >
-                    Forgot your password?
-                </Link>
+div#app div#login div#form label {
+    color: #95a5a6;
+    font-size: 0.8em;
+}
 
-                <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Log in
-                </PrimaryButton>
-            </div>
-        </form>
-    </GuestLayout>
-</template>
+div#app div#login div#form input {
+    background-color: transparent;
+    border: none;
+    color: #ecf0f1;
+    font-size: 1em;
+    margin-bottom: 20px;
+}
+
+div#app div#login div#form ::placeholder {
+    color: #ecf0f1;
+    opacity: 1;
+}
+
+div#app div#login div#form button {
+    background-color: #ffffff;
+    cursor: pointer;
+    border: none;
+    padding: 10px;
+    transition: background-color 0.2s ease-in-out;
+    width: 100%;
+}
+
+div#app div#login div#form button:hover {
+    background-color: #eeeeee;
+}
+
+@media screen and (max-width: 600px) {
+    div#app div#login {
+        align-items: unset;
+        background-color: unset;
+        display: unset;
+        justify-content: unset;
+    }
+
+    div#app div#login div#description {
+        margin: 0 auto;
+        max-width: 350px;
+        width: 100%;
+    }
+
+    div#app div#login div#form {
+        border-radius: unset;
+        box-shadow: unset;
+        width: 100%;
+    }
+
+    div#app div#login div#form form {
+        margin: 0 auto;
+        max-width: 280px;
+        width: 100%;
+    }
+}
+</style>

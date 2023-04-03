@@ -2,79 +2,62 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreGroupRequest;
 use App\Http\Resources\GroupResource;
 use App\Models\Group;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
 use Illuminate\Database\QueryException;
-use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
 use Inertia\ResponseFactory;
-use JetBrains\PhpStorm\NoReturn;
+
 
 class GroupsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index(): \Inertia\Response|ResponseFactory
     {
+        $this->authorize('viewAny', Group::class);
         $groups = GroupResource::collection(Group::all());
 
         return inertia('Groups/Index', compact('groups'));
-
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+
+    public function create(): \Inertia\Response|ResponseFactory
     {
-        dd(__METHOD__);
+        $this->authorize('create', Group::class);
+        return inertia('Groups/Create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        dd(__METHOD__);
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        dd(__METHOD__);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Group $group): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    public function store(StoreGroupRequest $request): RedirectResponse
     {
 
-        return view('groups.edit',compact('group'));
+        $this->authorize('create', Group::class);
+        Group::create($request->validated());
+
+        return redirect()->route('group.index')
+            ->with('message', 'Group created successfully');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function edit(Group $group): \Inertia\Response|ResponseFactory
     {
-        dd(__METHOD__);
+        $this->authorize('create', Group::class);
+        return inertia('Group/Edit', compact('group'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    #[NoReturn]
+    public function update(Group $group, StoreGroupRequest $request)
+    {
+        $this->authorize('create', Group::class);
+        $group->update($request->validated());
+
+        return redirect()->route('groups.index')
+            ->with('message', 'Group updated successfully');
+    }
+
     public function destroy(Group $group): RedirectResponse
     {
+        $this->authorize('create', Group::class);
 
         abort_if(Gate::denies('delete'),Response::HTTP_FORBIDDEN,'403 Forbidden');
 

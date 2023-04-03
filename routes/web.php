@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::permanentRedirect('/','login');
 
+Route::inertia('welcome', 'Auth/Login')->name('authentication');
 Route::inertia('about','About')->name('pages.about');
 
 Route::get( 'search',        [SearchController::class,'results'])->name('search.results');
