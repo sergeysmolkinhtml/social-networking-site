@@ -12,7 +12,7 @@
         "@tailwindcss/forms": "^0.5.3",
         "@tailwindcss/line-clamp": "^0.4.2",
         "@tailwindcss/typography": "^0.5.9",
-        "@vitejs/plugin-vue": "^4.0.0",
+        "@vitejs/plugin-vue": "^4.1.0",
         "@vue/server-renderer": "^3.2.31",
         "alpinejs": "^3.0.6",
         "autoprefixer": "^10.4.14",
@@ -31,6 +31,8 @@
     "dependencies": {
         "@headlessui/vue": "^1.7.12",
         "@heroicons/vue": "^2.0.16",
+        "@inertiajs/inertia": "^0.11.1",
+        "@inertiajs/inertia-vue3": "^0.6.0",
         "dropzone": "^6.0.0-beta.2",
         "vue-heroicons": "^0.9.4"
     }

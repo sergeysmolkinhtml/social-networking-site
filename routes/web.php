@@ -13,7 +13,8 @@ use App\Http\Controllers\{ChangeRoles,
     ProfileController,
     SearchController,
     TermsController,
-    VacancyController};
+    VacancyController,
+    WelcomeController};
 
 use App\Http\Livewire\Pages\CandidateProfile;
 use App\Http\Middleware\EnsureUserIsEmployer;
@@ -23,9 +24,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::permanentRedirect('/','login');
 
-Route::get('/',function (){
-    return 'Sign In / Sign Up page';
-});
 
 Route::get( 'search',        [SearchController::class,'results'])->name('search.results');
 Route::post('notifications', [NotificationsController::class,'get']);
@@ -85,6 +83,8 @@ Route::controller(ChatController::class)
         Route::get('/messages', 'messages');
         Route::post('/send', 'send');
     });
+
+Route::get('/',[WelcomeController::class,'index'])->name('welcome.authorize');
 
 Route::middleware([
     'auth:sanctum',
