@@ -19,14 +19,14 @@ class GroupResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'description' => $this->description,
+            'description' => substr($this->description,0,50),
             'status' => $this->status,
             'price' => $this->mergeWhen($request->group,[
                 'price' => $this->price,
             ]),
             'deleted_at' => $this->deleted_at,
             'updated_at' => $this->updated_at,
-            'created_at' => $this->created_at->diffForHumans(),
+            'created_at' => $this->created_at->toDateString(),
         ];
     }
 

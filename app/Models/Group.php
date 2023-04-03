@@ -19,6 +19,7 @@ class Group extends Model implements HasMedia
         Filter,
         SoftDeletes;
 
+    use Filter;
 
 
     public const STATUS = ['open', 'in progress', 'pending', 'waiting client', 'blocked', 'closed'];

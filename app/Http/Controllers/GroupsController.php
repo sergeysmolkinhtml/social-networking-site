@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\GroupResource;
 use App\Models\Group;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -21,7 +22,7 @@ class GroupsController extends Controller
      */
     public function index(): \Inertia\Response|ResponseFactory
     {
-        $groups = Group::all();
+        $groups = GroupResource::collection(Group::all());
 
         return inertia('Groups/Index', compact('groups'));
 

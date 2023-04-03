@@ -24,6 +24,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::permanentRedirect('/','login');
 
+Route::inertia('about','About')->name('pages.about');
+
 Route::get( 'search',        [SearchController::class,'results'])->name('search.results');
 Route::post('notifications', [NotificationsController::class,'get']);
 
