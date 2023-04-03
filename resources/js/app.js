@@ -1,4 +1,3 @@
-/*import './bootstrap';
 
 import Alpine from 'alpinejs';
 import focus from '@alpinejs/focus';
@@ -6,11 +5,14 @@ import focus from '@alpinejs/focus';
 import Index from './Pages/Welcome/Index.vue'
 window.Alpine = Alpine;
 Alpine.plugin(focus);
-Alpine.start();*/
+Alpine.start();
+
+import './bootstrap';
 
 import { createApp, h } from 'vue'
 import { createInertiaApp } from '@inertiajs/vue3'
 import {InertiaProgress} from '@inertiajs/progress'
+
 
 createInertiaApp({
     resolve: name => {

@@ -9,8 +9,8 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Application;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Inertia\Response;
+use Inertia\ResponseFactory;
 
 class ChatController extends Controller
 {
@@ -18,11 +18,11 @@ class ChatController extends Controller
     {
         $this->middleware('auth');
     }
-    public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
-    {
 
-        $slot = 123;
-        return view('chat.index', compact('slot'));
+    public function index(): Response|ResponseFactory
+    {
+        $user = auth()->user();
+        return Inertia('Chat/Index',compact('user'));
     }
 
     public function messages(): Collection|array
@@ -30,16 +30,18 @@ class ChatController extends Controller
         return Message::with('user')->get();
     }
 
-    public function send(MessageFormRequest $request)
+    public function send(MessageFormRequest $request): array
     {
-        $user = Auth::user();
-        $message = $user->messages()->create([
-            'message' => $request->input('message')
-        ]);
+        $message = $request->user()
+            ->messages()
+            ->create([
+                $request->validated()
+                ]
+            );
 
-        broadcast(new MessageSent($request->user(),$message));
+        broadcast(new MessageSent($request->user(), $message));
 
-        return ['status' => 'Message Sent!'];
+        return $message;
     }
 
 }

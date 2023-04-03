@@ -81,9 +81,9 @@ require __DIR__ . '/posts.php';
 Route::controller(ChatController::class)
     ->middleware(EnsureUserIsEmployer::class)
     ->group(function () {
-        Route::get('/dialogues/{nickname}/', 'index')->name('dialogues.dash');
-        Route::get('/messages', 'messages');
-        Route::post('/send', 'send');
+        Route::get('/dialogues', 'index')->name('dialogues.dash');
+        Route::inertia('/messages', 'messages');
+        Route::inertia('/send', 'send');
     });
 
 Route::middleware([

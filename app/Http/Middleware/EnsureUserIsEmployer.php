@@ -20,7 +20,7 @@ class EnsureUserIsEmployer
     {
         $user = Auth::user();
 
-        if ($user->employer === '1'){
+        if ($user->employer === 1){
             return $next($request);
         }
 
