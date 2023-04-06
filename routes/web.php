@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\{Auth\RegisteredUserController,
-    ChangeRoles,
     ChatController,
     FriendsController,
     GroupsController,
@@ -15,7 +14,8 @@ use App\Http\Controllers\{Auth\RegisteredUserController,
     SearchController,
     TermsController,
     VacancyController,
-    WelcomeController};
+
+};
 
 use App\Http\Livewire\Pages\CandidateProfile;
 use App\Http\Middleware\EnsureUserIsEmployer;
@@ -34,6 +34,8 @@ Route::post('notifications', [NotificationsController::class,'get']);
 Route::get( '/alert',function (){
     return redirect()->route('home')->with('info','alert');
 });
+
+Route::get('users/list', [RegisteredUserController::class, 'index'])->name('users.index');
 
 Route::middleware(['auth','termsAccepted'])->group(function (){
     Route::resource('groups', GroupsController::class);

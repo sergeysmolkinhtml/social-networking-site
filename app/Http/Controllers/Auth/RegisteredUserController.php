@@ -7,11 +7,15 @@ use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use App\Services\ChangeUserRoleService;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -28,7 +32,7 @@ class RegisteredUserController extends Controller
     /**
      * Handle an incoming registration request.
      *
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
     public function store(Request $request): RedirectResponse
     {
@@ -51,11 +55,17 @@ class RegisteredUserController extends Controller
         return redirect(RouteServiceProvider::HOME);
     }
 
+    public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    {
+        $users = User::paginate();
 
-    public function changeRoles(User $userId, ChangeUserRoleService $role)
+        return view('users.index', compact('users'));
+    }
+
+
+    public function changeRoles(User $userId, ChangeUserRoleService $role): RedirectResponse
     {
         $role->change($userId->id);
-
         return redirect()->back()->with('info', 'Changed to employers prhdfhhrfdhdfjdfjajfdofile');
     }
 }

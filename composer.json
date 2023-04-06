@@ -7,6 +7,7 @@
     "require": {
         "php": "^8.1",
         "arrilot/laravel-widgets": "^3.13",
+        "barryvdh/laravel-dompdf": "^2.0",
         "bezhansalleh/filament-shield": "^2.4",
         "bugsnag/bugsnag-laravel": "^2.26",
         "filament/filament": "^2.17",
