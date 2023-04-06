@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
+use App\Services\ChangeUserRoleService;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -48,5 +49,13 @@ class RegisteredUserController extends Controller
         Auth::login($user);
 
         return redirect(RouteServiceProvider::HOME);
+    }
+
+
+    public function changeRoles(User $userId, ChangeUserRoleService $role)
+    {
+        $role->change($userId->id);
+
+        return redirect()->back()->with('info', 'Changed to employers prhdfhhrfdhdfjdfjajfdofile');
     }
 }

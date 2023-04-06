@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\{ChangeRoles,
+use App\Http\Controllers\{Auth\RegisteredUserController,
+    ChangeRoles,
     ChatController,
     FriendsController,
     GroupsController,
@@ -44,8 +45,8 @@ Route::middleware(['auth','termsAccepted'])->group(function (){
 
 
     Route::group(['prefix' => 'roles','as' => 'roles.'], function (){
-        Route::get('{id}/change-role/',   [ChangeRoles::class, 'change'])     ->name('change-role');
-        Route::get('candidate/id/{user}', [CandidateProfile::class, 'render'])->name('user_candidate.index');
+        Route::get('{userId}/change-role/',[RegisteredUserController::class, 'changeRoles'])->name('user.change-role');
+        Route::get('candidate/id/{user}',  [CandidateProfile::class, 'render'])->name('user_candidate.index');
     });
 
     Route::group(['prefix' => 'media', 'as' => 'media.'], function () {

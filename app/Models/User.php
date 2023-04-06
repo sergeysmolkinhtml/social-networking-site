@@ -64,6 +64,7 @@ class User extends Authenticatable implements MustVerifyEmail,FilamentUser
         'google_id',
         'terms_accepted',
         'role_id',
+        'employer',
 
     ];
 

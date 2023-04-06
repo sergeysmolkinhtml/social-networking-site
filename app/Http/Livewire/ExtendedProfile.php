@@ -10,7 +10,6 @@ use Livewire\Component;
 
 class ExtendedProfile extends Component
 {
-
     /**
      * The component's state.
      *
