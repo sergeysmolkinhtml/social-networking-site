@@ -64,6 +64,8 @@ class ExtendedProfile extends Component
             'work_formats' => ['nullable','string','max:50'],
             'languages'    => ['nullable','string','max:200'],
             'skills'       => ['nullable','string','max:200'],
+            'achievements' => ['nullable','string','max:200'],
+            'work_experience_years' => ['nullable','string','max:200'],
         ])->validate();
 
         $user = Auth::user();
@@ -72,6 +74,7 @@ class ExtendedProfile extends Component
             'date_of_birth' => $this->setStrBirthday(),
             'job_title' => $this->state['job_title'],
             'city'      => $this->state['city'],
+            'work_experience_years' => $this->state['work_experience_years'],
             'work_formats'=> $this->state['work_formats'],
             'languages'  => $this->state['languages'],
             'skills'    => $this->state['skills'],

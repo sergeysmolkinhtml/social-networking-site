@@ -45,6 +45,13 @@ class User extends Authenticatable implements MustVerifyEmail,FilamentUser
         'email',
         'password',
 
+        'achievements',
+        'skills',
+        'work_experience_years',
+        'work_formats',
+        'languages',
+        'work_formats',
+        'city',
         'email',
         'date_of_birth',
         'job_title',
