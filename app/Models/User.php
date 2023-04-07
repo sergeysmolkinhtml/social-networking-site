@@ -104,6 +104,12 @@ class User extends Authenticatable implements MustVerifyEmail,FilamentUser
         'profile_photo_url',
     ];
 
+    public function teams(): HasMany
+    {
+        return $this->hasMany(TeamSearch::class);
+    }
+
+
     public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class);

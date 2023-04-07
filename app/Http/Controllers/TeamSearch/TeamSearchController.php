@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\TeamSearch;
 
 use App\Http\Controllers\Controller;
+use App\Models\TeamSearch;
 use Illuminate\Http\Request;
 
 class TeamSearchController extends Controller
@@ -12,7 +13,8 @@ class TeamSearchController extends Controller
      */
     public function index()
     {
-        return view('teams-search.index');
+        $teams = TeamSearch::all();
+        return view('teams-search.index',compact('teams'));
     }
 
     /**
@@ -20,7 +22,7 @@ class TeamSearchController extends Controller
      */
     public function create()
     {
-        dd(__METHOD__);
+        return view('teams-search.create');
     }
 
     /**
@@ -28,7 +30,7 @@ class TeamSearchController extends Controller
      */
     public function store(Request $request)
     {
-        dd(__METHOD__);
+        return view('teams-search.store');
     }
 
     /**
@@ -36,7 +38,7 @@ class TeamSearchController extends Controller
      */
     public function show(string $id)
     {
-        dd(__METHOD__);
+        return view('teams-search.show');
     }
 
     /**
@@ -44,7 +46,7 @@ class TeamSearchController extends Controller
      */
     public function edit(string $id)
     {
-        dd(__METHOD__);
+        return view('teams-search.edit');
     }
 
     /**
