@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -25,7 +24,7 @@ class SocialAuthController extends Controller
                 Auth::login($isUser);
 
                 return redirect('/dashboart');
-            }else{
+            } else {
                 $createdUser = User::create([
                     'name'      => $user->name,
                     'email'     => $user->email,

@@ -12,10 +12,9 @@ use App\Http\Controllers\{Auth\RegisteredUserController,
     PostController,
     ProfileController,
     SearchController,
+    TeamSearch\TeamSearchController,
     TermsController,
-    VacancyController,
-
-};
+    VacancyController};
 
 use App\Http\Livewire\Pages\CandidateProfile;
 use App\Http\Middleware\EnsureUserIsEmployer;
@@ -45,6 +44,7 @@ Route::middleware(['auth','termsAccepted'])->group(function (){
     Route::post('{nickname}/pfp/upload',[ImageController::class, 'uploadPfp'])->name('pfp.upload');
     Route::get('{nickname}/friends',    [FriendsController::class, 'index'])->name('friends.index');
 
+    Route::resource('/team-search', TeamSearchController::class);
 
     Route::group(['prefix' => 'roles','as' => 'roles.'], function (){
         Route::get('{userId}/change-role/',[RegisteredUserController::class, 'changeRoles'])->name('user.change-role');
