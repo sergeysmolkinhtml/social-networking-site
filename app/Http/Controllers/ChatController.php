@@ -34,10 +34,7 @@ class ChatController extends Controller
     {
         $message = $request->user()
             ->messages()
-            ->create([
-                $request->validated()
-                ]
-            );
+            ->create([$request->validated()]);
 
         broadcast(new MessageSent($request->user(), $message));
 

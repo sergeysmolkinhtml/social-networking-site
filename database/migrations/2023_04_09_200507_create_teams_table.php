@@ -11,16 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('team_search', function (Blueprint $table) {
+        Schema::create('coop_teams', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->string('search_for')->nullable();
+            $table->string('search_for')->comment('Developer who you are searching for')->nullable();
             $table->string('short_description')->nullable();
             $table->text('long_description')->nullable();
-            $table->mediumText('stack_of_technologies')->nullable();
             $table->enum('user_grade',['junior','middle','senior'])->nullable();
             $table->enum('accept_with_grade',['junior','middle','senior'])->nullable();
-
+            $table->foreignId('user_id')->references('id')->on('users');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('teams');
     }
 };
