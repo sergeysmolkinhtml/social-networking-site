@@ -98,9 +98,12 @@
                             @endif
                         @endif
                     @endauth
-
                 </div>
             </div>
+            <script>
+                console.log('ghelo')
+                $('#notifications');
+            </script>
             <div class="mt-20 text-center border-b pb-12"><h1 class="text-4xl font-medium text-gray-700">
                     {{$user->name}},
                     <span class="font-light text-gray-500">{{$user->age}}</span></h1>
@@ -116,3 +119,4 @@
     </div>
 @endsection
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+<script src="resources/js/Composables/profile/show.js" defer></script>

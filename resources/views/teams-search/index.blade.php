@@ -14,6 +14,9 @@
         <div class="card-footer text-body-secondary">
             {{$team->created_at}}
         </div>
+        <div class="px-4">
+            <a href="{{route('team-search.create')}}">Зробити команду</a>
+        </div>
     </div>
     @endforeach
 @endsection

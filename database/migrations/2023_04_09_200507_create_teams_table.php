@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('short_description')->nullable();
             $table->text('long_description')->nullable();
             $table->enum('user_grade',['junior','middle','senior'])->nullable();
-            $table->enum('accept_with_grade',['junior','middle','senior'])->nullable();
+            $table->set('accept_with_grade',['junior','middle','senior'])->nullable();
             $table->foreignId('user_id')->references('id')->on('users');
             $table->softDeletes();
             $table->timestamps();

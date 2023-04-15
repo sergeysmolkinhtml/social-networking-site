@@ -19,5 +19,6 @@
 
 @vite(['resources/js/app.js'])
 <script src="https://cdn.tailwindcss.com"></script>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 </body>
 </html>
