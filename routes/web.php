@@ -74,20 +74,20 @@ Route::middleware(['auth','termsAccepted'])->group(function (){
 
     Route::get('/invoice/cat/{name}', [InvoiceController::class, 'uploadCat'])
         ->name('invoice.cat');
-});
 
-Route::post('upload', [PostController::class, 'upload'])->name('upload');
+    Route::post('upload', [PostController::class, 'upload'])->name('upload');
+
+    Route::controller(ChatController::class)
+        ->middleware(EnsureUserIsEmployer::class)
+        ->group(function () {
+            Route::get('/dialogues', 'index')->name('dialogues.dash');
+            Route::inertia('/messages', 'messages');
+            Route::inertia('/send', 'send');
+        });
+});
 
 require __DIR__ . '/friends.php';
 require __DIR__ . '/posts.php';
-
-Route::controller(ChatController::class)
-    ->middleware(EnsureUserIsEmployer::class)
-    ->group(function () {
-        Route::get('/dialogues', 'index')->name('dialogues.dash');
-        Route::inertia('/messages', 'messages');
-        Route::inertia('/send', 'send');
-    });
 
 Route::middleware([
     'auth:sanctum',

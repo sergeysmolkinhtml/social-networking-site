@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\TeamSearch;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreTeamRequst;
+use App\Http\Requests\StoreTeamRequest;
 use App\Models\TeamSearch;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -25,7 +25,7 @@ class TeamSearchController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Request $request)
+    public function create(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         return view('teams-search.create');
     }
@@ -33,10 +33,11 @@ class TeamSearchController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreTeamRequst $request): RedirectResponse
+    public function store(StoreTeamRequest $request): RedirectResponse
     {
         TeamSearch::create($request->validated());
-        return redirect()->route('teams-search-index')->with(['msg' => 'Successfully created team']);
+        return redirect()->route('teams-search-index')
+            ->with(['msg' => 'Successfully created team']);
     }
 
     /**
